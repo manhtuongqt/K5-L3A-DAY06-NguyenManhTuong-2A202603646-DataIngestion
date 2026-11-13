@@ -1,15 +1,15 @@
-# Cách xác nhận audit
+# Audit đã được người học xác nhận
 
-Trạng thái hiện tại xem [status.json](status.json). **Bản chính đã có đủ 110 nhãn `label`, lý do `reason` và người chấm hỗ trợ `annotator`.** Codex đã đọc nội dung thực tế để điền; đây là bản dùng để người học đối chiếu và sửa tiếp, chưa thay thế việc xác nhận thủ công theo GUIDE.md.
+Nguyễn Mạnh Tường đã thông báo đối chiếu và chấp nhận toàn bộ **110 dòng** của [labels.csv](labels.csv) ngày 13/11/2026. Hồ sơ được ghi thay mặt người học theo yêu cầu trực tiếp trong cuộc trao đổi, không tự suy luận từ việc ủy quyền. Xem [human_confirmation.json](human_confirmation.json), [status.json](status.json) và [human_summary.json](human_summary.json).
 
-1. Mở [REVIEW.md](REVIEW.md), đối chiếu chunk với nguồn `data/normalized/` và HTML gốc khi cần.
-2. Mở [labels.csv](labels.csv). Giữ nguyên ID. Điền `human_label`, `human_reason`, `reviewer`, `reviewed_at` cho từng mẫu đã thực sự đọc.
-3. Coherence và grounding: 0, 1 hoặc 2 theo GUIDE. Metadata và gold: 0 nếu sai, 1 nếu đúng. Ô trống nghĩa là chưa xác nhận, không phải điểm 0.
-4. Nếu đề xuất sai thì ghi nhãn đúng và giải thích. Nếu thấy gold có nguồn tương đương khác hoặc thiếu điều kiện, ghi rõ câu/nguồn; không sửa lén benchmark đã khóa hoặc xóa kết quả cũ.
-5. Chạy `python -m src.pipeline audit` để cập nhật số mẫu đã xác nhận. Lệnh giữ các cột human hiện có. Sau đó `python -m src.pipeline report` để cập nhật báo cáo.
+1. Bảng chính đã bỏ cột `annotator`; `reviewer` ghi Nguyễn Mạnh Tường. `human_label`, `human_reason`, `reviewed_at` ghi nhận việc đối chiếu và chấp nhận.
+2. Hồ sơ xác nhận lưu commit/CSV đã xem và fingerprint nhãn, lý do, nguồn của từng dòng. Xác nhận chỉ áp dụng đúng nội dung đã được duyệt.
+3. Coherence/grounding dùng 0–2; metadata/gold dùng 0=sai, 1=đúng. Nếu nội dung một dòng bị sửa, cần đối chiếu lại; không tự kế thừa xác nhận cũ.
+4. Không sửa benchmark đã khóa, xóa kết quả cũ hoặc nâng strict metrics sau khi xem test.
+5. Chạy `python -m src.pipeline audit`, `report`, `verify` và `python scripts/check_submission.py` để cập nhật bảng đo và gate; các lệnh này không gọi lại benchmark.
 
-Mẫu bắt buộc: 30 nhãn coherence (10 anchor × A/B/C), 45 nhãn metadata (5 test × top-3 × A/B/C), 15 nhãn grounding (5 test × A/B/C). Thêm 20 mục kiểm tra ngữ nghĩa gold. Tổng cộng 110 dòng; có thể dùng cùng kết luận cho B/C ở các chunk trùng, nhưng vẫn phải kiểm tra và ghi nhận đúng từng dòng.
+Phạm vi xác nhận: 30/30 coherence (10 anchor × A/B/C), 45/45 metadata (5 test × top-3 × A/B/C), 15/15 grounding (5 test × A/B/C), 20/20 gold. Gói [REVIEW.md](REVIEW.md) giữ nguyên nguồn và chunk để truy vết.
 
-Nhãn chính dùng [content_review.json](content_review.json): coherence được đọc nội dung chunk, grounding được đọc cả top-3 và các điều kiện cần trả lời, gold được đọc cùng ngữ cảnh nguồn. Metadata kết hợp đối chiếu source/page/type/version và text-offset bằng code với kiểm tra thông tin nguồn. C dùng cùng chunk B tại các anchor nên nhãn coherence tương ứng giống B. [assistant_summary.json](assistant_summary.json) tổng hợp riêng nhãn Codex; không lấy trung bình này làm điểm thủ công đã xác nhận của người học.
+Codex hỗ trợ chuẩn bị bản chấm ban đầu từ nguồn/trace thật ở [content_review.json](content_review.json); người học đã đối chiếu và chấp nhận. Đây là human review của bản hỗ trợ, không phải hai lượt chấm độc lập hoặc chấm mù. [assistant_summary.json](assistant_summary.json) giữ nguồn gốc bản hỗ trợ; các bảng kết quả chính lấy nhãn người học đã xác nhận. Vẫn có nguy cơ thiên lệch theo gợi ý ban đầu.
 
-Ngoại lệ được ghi riêng: `ai_review.json` có nhận xét đọc nội dung của AI cho T04, đề xuất grounding=2 vì các ý cần trả lời đã có trong chunk dù quote bị cắt phần đuôi. Nhận xét này cũng chưa được người học xác nhận và không sửa điểm strict.
+T04 đã được chấp nhận grounding=2 vì top-3 có đủ None thành chuỗi rỗng và không đảo ngược; strict Hit@3 vẫn giữ 0 vì thiếu đuôi quote. [ai_review.json](ai_review.json) là ghi chú ban đầu được giữ lại, không phải một lần chạy hoặc lượt chấm độc lập mới.

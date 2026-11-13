@@ -1,0 +1,28 @@
+{
+  "reviewer": "Nguyễn Mạnh Tường",
+  "confirmed_rows": 110,
+  "total_rows": 110,
+  "complete": true,
+  "groups": {
+    "coherence": {
+      "required": 30,
+      "human_confirmed": 30,
+      "pending": 0
+    },
+    "metadata": {
+      "required": 45,
+      "human_confirmed": 45,
+      "pending": 0
+    },
+    "grounding": {
+      "required": 15,
+      "human_confirmed": 15,
+      "pending": 0
+    },
+    "gold": {
+      "required": 20,
+      "human_confirmed": 20,
+      "pending": 0
+    }
+  }
+}

@@ -1,8 +1,8 @@
 {
-  "verified_at": "2026-11-13T10:55:28.823419+00:00",
+  "verified_at": "2026-11-13T11:07:53.332033+00:00",
   "checks_passed": true,
   "content_units": 69,
   "questions": 20,
   "automatic_verification_only": true,
-  "human_audit": "pending until signed labels supplied"
+  "human_audit": "confirmed by Nguyễn Mạnh Tường; 110/110 rows accepted; see results/audit/human_confirmation.json"
 }

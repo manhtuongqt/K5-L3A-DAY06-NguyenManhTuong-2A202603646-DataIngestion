@@ -119,31 +119,32 @@
   },
   "selection": "B",
   "human_audit_status": {
-    "generated_at": "2026-11-13T10:53:33.521212+00:00",
-    "method": "Primary labels filled by Codex from source/trace content; no confirmed human audit",
-    "assistant_labeled": 110,
+    "generated_at": "2026-11-13T11:08:46.373950+00:00",
+    "method": "AI-assisted draft reviewed and accepted by the student; exact approved rows linked to human_confirmation.json",
+    "human_confirmation_file": "results/audit/human_confirmation.json",
+    "reviewer": "Nguyễn Mạnh Tường",
     "groups": {
       "coherence": {
         "required": 30,
-        "human_confirmed": 0,
-        "pending": 30
+        "human_confirmed": 30,
+        "pending": 0
       },
       "metadata": {
         "required": 45,
-        "human_confirmed": 0,
-        "pending": 45
+        "human_confirmed": 45,
+        "pending": 0
       },
       "grounding": {
         "required": 15,
-        "human_confirmed": 0,
-        "pending": 15
+        "human_confirmed": 15,
+        "pending": 0
       },
       "gold": {
         "required": 20,
-        "human_confirmed": 0,
-        "pending": 20
+        "human_confirmed": 20,
+        "pending": 0
       }
     }
   },
-  "generated_at": "2026-11-13T10:57:13.984454+00:00"
+  "generated_at": "2026-11-13T11:09:33.883948+00:00"
 }

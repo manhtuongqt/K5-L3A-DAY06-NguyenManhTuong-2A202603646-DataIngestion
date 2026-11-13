@@ -1,7 +1,7 @@
 # Gói kiểm tra của người học
 
-Bản chính đã được Codex đọc và điền nhãn theo nội dung thật. Đây là nhãn hỗ trợ của AI, chưa ghi thành nhãn thủ công của người học.
-Đọc nguồn/chunk, rồi điền `human_label`, `human_reason`, `reviewer`, `reviewed_at` trong `labels.csv`. Không cần đồng ý với đề xuất.
+Nguyễn Mạnh Tường đã đối chiếu và xác nhận toàn bộ 110 nhãn/lý do trong bản chính ngày 13/11/2026. Xác nhận được lưu tại human_confirmation.json. Bản chấm ban đầu được Codex hỗ trợ chuẩn bị, sau đó người học kiểm tra và chấp nhận.
+Bảng chính đã ghi đủ `human_label`, `human_reason`, `reviewer`, `reviewed_at` theo xác nhận của người học; giữ hồ sơ xác nhận để truy vết.
 Coherence/grounding dùng 0–2. Metadata/gold dùng 0=sai, 1=đúng. Khi sửa gold, ghi vào lý do và giữ nguyên benchmark đã chạy; không sửa âm thầm để thay điểm.
 Mẫu coherence và tập test đã chốt trong `benchmark/protocol.json` trước khi chạy. Nguồn đầy đủ ở `data/normalized/` và `data/raw/`.
 
@@ -36,7 +36,7 @@ often exist in the data produced and consumed by different applications.  These
 differences can make it annoying to process CSV files
 ````
 
-Nhãn bản chính (Codex): 1/2. Giới thiệu CSV đọc được nhưng câu về xử lý nhiều nguồn kết thúc ở 'CSV files', thiếu phần sau và kết luận của đoạn.
+Nhãn bản chính: 1/2. Giới thiệu CSV đọc được nhưng câu về xử lý nhiều nguồn kết thúc ở 'CSV files', thiếu phần sau và kết luận của đoạn.
 
 ## COH-01-B: coherence
 Nguồn: https://docs.python.org/3.13/library/csv.html — library_csv:u001, anchor 200; chunk [0, 780).
@@ -75,7 +75,7 @@ data from the programmer.
 
 ````
 
-Nhãn bản chính (Codex): 2/2. Giữ trọn đoạn giới thiệu CSV, khác biệt định dạng giữa ứng dụng và khả năng dùng một module để xử lý; có tên csv và nguồn mã.
+Nhãn bản chính: 2/2. Giữ trọn đoạn giới thiệu CSV, khác biệt định dạng giữa ứng dụng và khả năng dùng một module để xử lý; có tên csv và nguồn mã.
 
 ## COH-01-C: coherence
 Nguồn: https://docs.python.org/3.13/library/csv.html — library_csv:u001, anchor 200; chunk [0, 780).
@@ -114,7 +114,7 @@ data from the programmer.
 
 ````
 
-Nhãn bản chính (Codex): 2/2. Giữ trọn đoạn giới thiệu CSV, khác biệt định dạng giữa ứng dụng và khả năng dùng một module để xử lý; có tên csv và nguồn mã. C dùng đúng chunk B tại cùng anchor, filter truy vấn không thay đổi coherence của chunk.
+Nhãn bản chính: 2/2. Giữ trọn đoạn giới thiệu CSV, khác biệt định dạng giữa ứng dụng và khả năng dùng một module để xử lý; có tên csv và nguồn mã. C dùng đúng chunk B tại cùng anchor, filter truy vấn không thay đổi coherence của chunk.
 
 ## COH-02-A: coherence
 Nguồn: https://docs.python.org/3.13/library/csv.html — library_csv:u002, anchor 200; chunk [0, 500).
@@ -160,7 +160,7 @@ Spam |Lovely Spam| |Wonderful Spam|
 csv. register_dialect ( name , / , dialect = 'excel' , **
 ````
 
-Nhãn bản chính (Codex): 1/2. Ví dụ csv.writer và output đầy đủ, nhưng chữ ký register_dialect bị cắt ngay sau ** nên chunk vẫn còn ý dang dở.
+Nhãn bản chính: 1/2. Ví dụ csv.writer và output đầy đủ, nhưng chữ ký register_dialect bị cắt ngay sau ** nên chunk vẫn còn ý dang dở.
 
 ## COH-02-B: coherence
 Nguồn: https://docs.python.org/3.13/library/csv.html — library_csv:u002, anchor 200; chunk [0, 887).
@@ -216,7 +216,7 @@ csv. unregister_dialect ( name )
 
 ````
 
-Nhãn bản chính (Codex): 1/2. Giữ ví dụ và mô tả register_dialect, nhưng kết thúc bằng chữ ký unregister_dialect chưa có giải thích; không chấm 2 chỉ vì dài hơn A.
+Nhãn bản chính: 1/2. Giữ ví dụ và mô tả register_dialect, nhưng kết thúc bằng chữ ký unregister_dialect chưa có giải thích; không chấm 2 chỉ vì dài hơn A.
 
 ## COH-02-C: coherence
 Nguồn: https://docs.python.org/3.13/library/csv.html — library_csv:u002, anchor 200; chunk [0, 887).
@@ -272,7 +272,7 @@ csv. unregister_dialect ( name )
 
 ````
 
-Nhãn bản chính (Codex): 1/2. Giữ ví dụ và mô tả register_dialect, nhưng kết thúc bằng chữ ký unregister_dialect chưa có giải thích; không chấm 2 chỉ vì dài hơn A. C dùng đúng chunk B tại cùng anchor, filter truy vấn không thay đổi coherence của chunk.
+Nhãn bản chính: 1/2. Giữ ví dụ và mô tả register_dialect, nhưng kết thúc bằng chữ ký unregister_dialect chưa có giải thích; không chấm 2 chỉ vì dài hơn A. C dùng đúng chunk B tại cùng anchor, filter truy vấn không thay đổi coherence của chunk.
 
 ## COH-03-A: coherence
 Nguồn: https://docs.python.org/3.13/library/csv.html — library_csv:u003, anchor 200; chunk [0, 500).
@@ -319,7 +319,7 @@ with open('names.csv', 'w', newline='') as csvfile:
     writer.writerow({'f
 ````
 
-Nhãn bản chính (Codex): 1/2. Nêu được fieldnames bắt buộc nhưng đoạn ví dụ DictWriter bị cắt giữa khóa first_name, không còn là code hoàn chỉnh.
+Nhãn bản chính: 1/2. Nêu được fieldnames bắt buộc nhưng đoạn ví dụ DictWriter bị cắt giữa khóa first_name, không còn là code hoàn chỉnh.
 
 ## COH-03-B: coherence
 Nguồn: https://docs.python.org/3.13/library/csv.html — library_csv:u003, anchor 200; chunk [0, 732).
@@ -378,7 +378,7 @@ class csv. Dialect
 
 ````
 
-Nhãn bản chính (Codex): 1/2. Ví dụ DictWriter và output trọn vẹn; cuối chunk lại có class csv.Dialect đứng riêng, phải xem tiếp để biết vai trò lớp này.
+Nhãn bản chính: 1/2. Ví dụ DictWriter và output trọn vẹn; cuối chunk lại có class csv.Dialect đứng riêng, phải xem tiếp để biết vai trò lớp này.
 
 ## COH-03-C: coherence
 Nguồn: https://docs.python.org/3.13/library/csv.html — library_csv:u003, anchor 200; chunk [0, 732).
@@ -437,7 +437,7 @@ class csv. Dialect
 
 ````
 
-Nhãn bản chính (Codex): 1/2. Ví dụ DictWriter và output trọn vẹn; cuối chunk lại có class csv.Dialect đứng riêng, phải xem tiếp để biết vai trò lớp này. C dùng đúng chunk B tại cùng anchor, filter truy vấn không thay đổi coherence của chunk.
+Nhãn bản chính: 1/2. Ví dụ DictWriter và output trọn vẹn; cuối chunk lại có class csv.Dialect đứng riêng, phải xem tiếp để biết vai trò lớp này. C dùng đúng chunk B tại cùng anchor, filter truy vấn không thay đổi coherence của chunk.
 
 ## COH-04-A: coherence
 Nguồn: https://docs.python.org/3.13/library/csv.html — library_csv:u004, anchor 200; chunk [0, 500).
@@ -485,7 +485,7 @@ csv. QUOTE_NONNUMERIC
 Instructs writer objects to quote all non-numeric field
 ````
 
-Nhãn bản chính (Codex): 1/2. QUOTE_ALL và QUOTE_MINIMAL có ý nghĩa rõ, nhưng mô tả QUOTE_NONNUMERIC bị cắt giữa từ fields và thiếu chiều đọc thành float.
+Nhãn bản chính: 1/2. QUOTE_ALL và QUOTE_MINIMAL có ý nghĩa rõ, nhưng mô tả QUOTE_NONNUMERIC bị cắt giữa từ fields và thiếu chiều đọc thành float.
 
 ## COH-04-B: coherence
 Nguồn: https://docs.python.org/3.13/library/csv.html — library_csv:u004, anchor 200; chunk [0, 796).
@@ -546,7 +546,7 @@ csv. QUOTE_NONE
 
 ````
 
-Nhãn bản chính (Codex): 1/2. Giữ đủ hành vi QUOTE_NONNUMERIC và ngoại lệ kiểu số, nhưng kết thúc ở nhãn QUOTE_NONE chưa có định nghĩa.
+Nhãn bản chính: 1/2. Giữ đủ hành vi QUOTE_NONNUMERIC và ngoại lệ kiểu số, nhưng kết thúc ở nhãn QUOTE_NONE chưa có định nghĩa.
 
 ## COH-04-C: coherence
 Nguồn: https://docs.python.org/3.13/library/csv.html — library_csv:u004, anchor 200; chunk [0, 796).
@@ -607,7 +607,7 @@ csv. QUOTE_NONE
 
 ````
 
-Nhãn bản chính (Codex): 1/2. Giữ đủ hành vi QUOTE_NONNUMERIC và ngoại lệ kiểu số, nhưng kết thúc ở nhãn QUOTE_NONE chưa có định nghĩa. C dùng đúng chunk B tại cùng anchor, filter truy vấn không thay đổi coherence của chunk.
+Nhãn bản chính: 1/2. Giữ đủ hành vi QUOTE_NONNUMERIC và ngoại lệ kiểu số, nhưng kết thúc ở nhãn QUOTE_NONE chưa có định nghĩa. C dùng đúng chunk B tại cùng anchor, filter truy vấn không thay đổi coherence của chunk.
 
 ## COH-05-A: coherence
 Nguồn: https://docs.python.org/3.13/library/csv.html — library_csv:u005, anchor 200; chunk [0, 500).
@@ -659,7 +659,7 @@ The reader is hard-coded to recognise either '\r' or '\n' as
 en
 ````
 
-Nhãn bản chính (Codex): 1/2. Có mô tả escapechar và lineterminator đọc được; mở đầu là mảnh của danh sách trước và ghi chú reader bị cắt ở giữa end-of-line.
+Nhãn bản chính: 1/2. Có mô tả escapechar và lineterminator đọc được; mở đầu là mảnh của danh sách trước và ghi chú reader bị cắt ở giữa end-of-line.
 
 ## COH-05-B: coherence
 Nguồn: https://docs.python.org/3.13/library/csv.html — library_csv:u005, anchor 200; chunk [0, 992).
@@ -727,7 +727,7 @@ Dialect. quoting
 
 ````
 
-Nhãn bản chính (Codex): 1/2. Giữ trọn ghi chú reader và điều kiện quotechar, nhưng vẫn bắt đầu bằng mảnh 'the escapechar itself' và kết thúc tại tên thuộc tính quoting chưa giải thích.
+Nhãn bản chính: 1/2. Giữ trọn ghi chú reader và điều kiện quotechar, nhưng vẫn bắt đầu bằng mảnh 'the escapechar itself' và kết thúc tại tên thuộc tính quoting chưa giải thích.
 
 ## COH-05-C: coherence
 Nguồn: https://docs.python.org/3.13/library/csv.html — library_csv:u005, anchor 200; chunk [0, 992).
@@ -795,7 +795,7 @@ Dialect. quoting
 
 ````
 
-Nhãn bản chính (Codex): 1/2. Giữ trọn ghi chú reader và điều kiện quotechar, nhưng vẫn bắt đầu bằng mảnh 'the escapechar itself' và kết thúc tại tên thuộc tính quoting chưa giải thích. C dùng đúng chunk B tại cùng anchor, filter truy vấn không thay đổi coherence của chunk.
+Nhãn bản chính: 1/2. Giữ trọn ghi chú reader và điều kiện quotechar, nhưng vẫn bắt đầu bằng mảnh 'the escapechar itself' và kết thúc tại tên thuộc tính quoting chưa giải thích. C dùng đúng chunk B tại cùng anchor, filter truy vấn không thay đổi coherence của chunk.
 
 ## COH-06-A: coherence
 Nguồn: https://docs.python.org/3.13/library/csv.html — library_csv:u006, anchor 200; chunk [0, 500).
@@ -844,7 +844,7 @@ Examples
 The simplest example of reading a CSV f
 ````
 
-Nhãn bản chính (Codex): 1/2. writeheader được giải thích đủ, nhưng tiêu đề chuyển sang ví dụ đọc CSV bị cắt giữa từ file; chunk chứa phần ngữ cảnh chưa xong.
+Nhãn bản chính: 1/2. writeheader được giải thích đủ, nhưng tiêu đề chuyển sang ví dụ đọc CSV bị cắt giữa từ file; chunk chứa phần ngữ cảnh chưa xong.
 
 ## COH-06-B: coherence
 Nguồn: https://docs.python.org/3.13/library/csv.html — library_csv:u006, anchor 200; chunk [0, 884).
@@ -911,7 +911,7 @@ The corresponding simplest possible writing example is:
 
 ````
 
-Nhãn bản chính (Codex): 1/2. Có writeheader và hai ví dụ đọc hoàn chỉnh; cuối cùng giới thiệu ví dụ ghi đơn giản nhưng chưa có code của ví dụ đó.
+Nhãn bản chính: 1/2. Có writeheader và hai ví dụ đọc hoàn chỉnh; cuối cùng giới thiệu ví dụ ghi đơn giản nhưng chưa có code của ví dụ đó.
 
 ## COH-06-C: coherence
 Nguồn: https://docs.python.org/3.13/library/csv.html — library_csv:u006, anchor 200; chunk [0, 884).
@@ -978,7 +978,7 @@ The corresponding simplest possible writing example is:
 
 ````
 
-Nhãn bản chính (Codex): 1/2. Có writeheader và hai ví dụ đọc hoàn chỉnh; cuối cùng giới thiệu ví dụ ghi đơn giản nhưng chưa có code của ví dụ đó. C dùng đúng chunk B tại cùng anchor, filter truy vấn không thay đổi coherence của chunk.
+Nhãn bản chính: 1/2. Có writeheader và hai ví dụ đọc hoàn chỉnh; cuối cùng giới thiệu ví dụ ghi đơn giản nhưng chưa có code của ví dụ đó. C dùng đúng chunk B tại cùng anchor, filter truy vấn không thay đổi coherence của chunk.
 
 ## COH-07-A: coherence
 Nguồn: https://docs.python.org/3.13/library/json.html — library_json:u001, anchor 200; chunk [0, 500).
@@ -1022,7 +1022,7 @@ ambiguous. All values in Python are objects. In JSON, an object refers to
 any data wrapped in curly braces,
 ````
 
-Nhãn bản chính (Codex): 1/2. Giới thiệu JSON rõ nhưng định nghĩa JSON object bị dừng sau curly braces, thiếu phần so sánh và ghi chú tiếp theo.
+Nhãn bản chính: 1/2. Giới thiệu JSON rõ nhưng định nghĩa JSON object bị dừng sau curly braces, thiếu phần so sánh và ghi chú tiếp theo.
 
 ## COH-07-B: coherence
 Nguồn: https://docs.python.org/3.13/library/json.html — library_json:u001, anchor 200; chunk [0, 895).
@@ -1078,7 +1078,7 @@ Encoding basic Python object hierarchies:
 
 ````
 
-Nhãn bản chính (Codex): 1/2. Giữ định nghĩa object và toàn bộ cảnh báo JSON không tin cậy; cuối chunk có nhãn Encoding basic Python object hierarchies nhưng chưa có ví dụ.
+Nhãn bản chính: 1/2. Giữ định nghĩa object và toàn bộ cảnh báo JSON không tin cậy; cuối chunk có nhãn Encoding basic Python object hierarchies nhưng chưa có ví dụ.
 
 ## COH-07-C: coherence
 Nguồn: https://docs.python.org/3.13/library/json.html — library_json:u001, anchor 200; chunk [0, 895).
@@ -1134,7 +1134,7 @@ Encoding basic Python object hierarchies:
 
 ````
 
-Nhãn bản chính (Codex): 1/2. Giữ định nghĩa object và toàn bộ cảnh báo JSON không tin cậy; cuối chunk có nhãn Encoding basic Python object hierarchies nhưng chưa có ví dụ. C dùng đúng chunk B tại cùng anchor, filter truy vấn không thay đổi coherence của chunk.
+Nhãn bản chính: 1/2. Giữ định nghĩa object và toàn bộ cảnh báo JSON không tin cậy; cuối chunk có nhãn Encoding basic Python object hierarchies nhưng chưa có ví dụ. C dùng đúng chunk B tại cùng anchor, filter truy vấn không thay đổi coherence của chunk.
 
 ## COH-08-A: coherence
 Nguồn: https://docs.python.org/3.13/library/json.html — library_json:u002, anchor 200; chunk [0, 500).
@@ -1172,7 +1172,7 @@ json. dump ( obj , fp , * , skipkeys = False , ensure_ascii = True , check_circu
 Serialize obj as a JSON formatted stream to fp (a .write() -supporting file-like object ) using this Python-to-JSON conversion ta
 ````
 
-Nhãn bản chính (Codex): 1/2. Có chữ ký json.dump nhưng câu mô tả bị cắt giữa từ table; cần đoạn kế tiếp để đọc hết ý.
+Nhãn bản chính: 1/2. Có chữ ký json.dump nhưng câu mô tả bị cắt giữa từ table; cần đoạn kế tiếp để đọc hết ý.
 
 ## COH-08-B: coherence
 Nguồn: https://docs.python.org/3.13/library/json.html — library_json:u002, anchor 200; chunk [0, 950).
@@ -1226,7 +1226,7 @@ therefore fp.write() must support str input.
 
 ````
 
-Nhãn bản chính (Codex): 2/2. json.dump có chữ ký, mô tả, cảnh báo không framed protocol và hai tham số obj/fp với yêu cầu write str; các ý này đầy đủ trong chunk.
+Nhãn bản chính: 2/2. json.dump có chữ ký, mô tả, cảnh báo không framed protocol và hai tham số obj/fp với yêu cầu write str; các ý này đầy đủ trong chunk.
 
 ## COH-08-C: coherence
 Nguồn: https://docs.python.org/3.13/library/json.html — library_json:u002, anchor 200; chunk [0, 950).
@@ -1280,7 +1280,7 @@ therefore fp.write() must support str input.
 
 ````
 
-Nhãn bản chính (Codex): 2/2. json.dump có chữ ký, mô tả, cảnh báo không framed protocol và hai tham số obj/fp với yêu cầu write str; các ý này đầy đủ trong chunk. C dùng đúng chunk B tại cùng anchor, filter truy vấn không thay đổi coherence của chunk.
+Nhãn bản chính: 2/2. json.dump có chữ ký, mô tả, cảnh báo không framed protocol và hai tham số obj/fp với yêu cầu write str; các ý này đầy đủ trong chunk. C dùng đúng chunk B tại cùng anchor, filter truy vấn không thay đổi coherence của chunk.
 
 ## COH-09-A: coherence
 Nguồn: https://docs.python.org/3.13/library/json.html — library_json:u003, anchor 200; chunk [0, 500).
@@ -1316,7 +1316,7 @@ Serialize obj to a JSON formatted str using this conversion
 table .  The a
 ````
 
-Nhãn bản chính (Codex): 1/2. Có mô tả json.dumps nhưng câu dẫn sang ý nghĩa tham số bị cắt ngay 'The a'; đầu chunk là lịch sử thay đổi chưa nêu rõ API.
+Nhãn bản chính: 1/2. Có mô tả json.dumps nhưng câu dẫn sang ý nghĩa tham số bị cắt ngay 'The a'; đầu chunk là lịch sử thay đổi chưa nêu rõ API.
 
 ## COH-09-B: coherence
 Nguồn: https://docs.python.org/3.13/library/json.html — library_json:u003, anchor 200; chunk [0, 919).
@@ -1363,7 +1363,7 @@ fp ( file-like object ) – A .read() -supporting text file or binary file conta
 
 ````
 
-Nhãn bản chính (Codex): 1/2. Mô tả dumps/load đọc được, nhưng nhiều tham số dumps chỉ dẫn 'same meaning as dump' không có định nghĩa trong chunk; các dòng Changed đầu cũng thiếu chủ thể API.
+Nhãn bản chính: 1/2. Mô tả dumps/load đọc được, nhưng nhiều tham số dumps chỉ dẫn 'same meaning as dump' không có định nghĩa trong chunk; các dòng Changed đầu cũng thiếu chủ thể API.
 
 ## COH-09-C: coherence
 Nguồn: https://docs.python.org/3.13/library/json.html — library_json:u003, anchor 200; chunk [0, 919).
@@ -1410,7 +1410,7 @@ fp ( file-like object ) – A .read() -supporting text file or binary file conta
 
 ````
 
-Nhãn bản chính (Codex): 1/2. Mô tả dumps/load đọc được, nhưng nhiều tham số dumps chỉ dẫn 'same meaning as dump' không có định nghĩa trong chunk; các dòng Changed đầu cũng thiếu chủ thể API. C dùng đúng chunk B tại cùng anchor, filter truy vấn không thay đổi coherence của chunk.
+Nhãn bản chính: 1/2. Mô tả dumps/load đọc được, nhưng nhiều tham số dumps chỉ dẫn 'same meaning as dump' không có định nghĩa trong chunk; các dòng Changed đầu cũng thiếu chủ thể API. C dùng đúng chunk B tại cùng anchor, filter truy vấn không thay đổi coherence của chunk.
 
 ## COH-10-A: coherence
 Nguồn: https://docs.python.org/3.13/library/json.html — library_json:u004, anchor 200; chunk [0, 500).
@@ -1486,7 +1486,7 @@ list
 
 ````
 
-Nhãn bản chính (Codex): 1/2. Có JSONDecoder và đầu bảng quy đổi object/dict, array/list, nhưng bảng bị dừng giữa chừng; chưa đủ phần giới thiệu bộ giải mã.
+Nhãn bản chính: 1/2. Có JSONDecoder và đầu bảng quy đổi object/dict, array/list, nhưng bảng bị dừng giữa chừng; chưa đủ phần giới thiệu bộ giải mã.
 
 ## COH-10-B: coherence
 Nguồn: https://docs.python.org/3.13/library/json.html — library_json:u004, anchor 200; chunk [0, 973).
@@ -1594,7 +1594,7 @@ given dict .  This can be used to provide custom deserializations
 
 ````
 
-Nhãn bản chính (Codex): 2/2. Giữ đầy đủ bảng quy đổi cơ bản, ghi chú NaN/Infinity ngoài đặc tả và vai trò object_hook. Dù bảng mất bố cục cột, các cặp JSON/Python vẫn đọc được theo thứ tự.
+Nhãn bản chính: 2/2. Giữ đầy đủ bảng quy đổi cơ bản, ghi chú NaN/Infinity ngoài đặc tả và vai trò object_hook. Dù bảng mất bố cục cột, các cặp JSON/Python vẫn đọc được theo thứ tự.
 
 ## COH-10-C: coherence
 Nguồn: https://docs.python.org/3.13/library/json.html — library_json:u004, anchor 200; chunk [0, 973).
@@ -1702,7 +1702,7 @@ given dict .  This can be used to provide custom deserializations
 
 ````
 
-Nhãn bản chính (Codex): 2/2. Giữ đầy đủ bảng quy đổi cơ bản, ghi chú NaN/Infinity ngoài đặc tả và vai trò object_hook. Dù bảng mất bố cục cột, các cặp JSON/Python vẫn đọc được theo thứ tự. C dùng đúng chunk B tại cùng anchor, filter truy vấn không thay đổi coherence của chunk.
+Nhãn bản chính: 2/2. Giữ đầy đủ bảng quy đổi cơ bản, ghi chú NaN/Infinity ngoài đặc tả và vai trò object_hook. Dù bảng mất bố cục cột, các cặp JSON/Python vẫn đọc được theo thứ tự. C dùng đúng chunk B tại cùng anchor, filter truy vấn không thay đổi coherence của chunk.
 
 ## GRD-T01-A: grounding và metadata top-3
 Câu hỏi: In the library reference, what resource risk comes from parsing untrusted JSON, and what precaution is advised?
@@ -1762,7 +1762,7 @@ Encoding basic Python object hierarchies:
 >>> json.dumps(['foo', {'bar': ('baz', 
 ````
 
-Nhãn grounding bản chính (Codex): 2/2. Top-3 library_json:u001 có đủ rủi ro CPU/bộ nhớ và khuyến nghị giới hạn kích thước. Top-1 về pickle khác câu hỏi, nhưng không làm mất bằng chứng đầy đủ ở top-3.
+Nhãn grounding bản chính: 2/2. Top-3 library_json:u001 có đủ rủi ro CPU/bộ nhớ và khuyến nghị giới hạn kích thước. Top-1 về pickle khác câu hỏi, nhưng không làm mất bằng chứng đầy đủ ở top-3.
 
 ## GRD-T01-B: grounding và metadata top-3
 Câu hỏi: In the library reference, what resource risk comes from parsing untrusted JSON, and what precaution is advised?
@@ -1862,7 +1862,7 @@ BOM in their input.  This module’s deserializer raises a ValueError when an in
 
 ````
 
-Nhãn grounding bản chính (Codex): 2/2. Top-1 library_json:u001 chứa trọn cảnh báo dữ liệu JSON không tin cậy, đủ cả hai ý và có nguồn.
+Nhãn grounding bản chính: 2/2. Top-1 library_json:u001 chứa trọn cảnh báo dữ liệu JSON không tin cậy, đủ cả hai ý và có nguồn.
 
 ## GRD-T01-C: grounding và metadata top-3
 Câu hỏi: In the library reference, what resource risk comes from parsing untrusted JSON, and what precaution is advised?
@@ -1962,7 +1962,7 @@ BOM in their input.  This module’s deserializer raises a ValueError when an in
 
 ````
 
-Nhãn grounding bản chính (Codex): 2/2. Top-1 như B, có cả rủi ro và cách giảm rủi ro; cả top-3 nằm trong library_reference đúng scope.
+Nhãn grounding bản chính: 2/2. Top-1 như B, có cả rủi ro và cách giảm rủi ro; cả top-3 nằm trong library_reference đúng scope.
 
 ## GRD-T02-A: grounding và metadata top-3
 Câu hỏi: In the library reference, why do repeated json.dump calls on the same file produce invalid JSON?
@@ -2044,7 +2044,7 @@ JSON files must be encoded in UTF-8. Use encoding="utf-8" when opening
 JSON file as a text f
 ````
 
-Nhãn grounding bản chính (Codex): 2/2. Top-2 library_json:u002 nói rõ JSON không framed và dump nhiều object vào cùng fp tạo file JSON không hợp lệ; đủ giải thích nguyên nhân.
+Nhãn grounding bản chính: 2/2. Top-2 library_json:u002 nói rõ JSON không framed và dump nhiều object vào cùng fp tạo file JSON không hợp lệ; đủ giải thích nguyên nhân.
 
 ## GRD-T02-B: grounding và metadata top-3
 Câu hỏi: In the library reference, why do repeated json.dump calls on the same file produce invalid JSON?
@@ -2144,7 +2144,7 @@ therefore fp.write() must support str input.
 
 ````
 
-Nhãn grounding bản chính (Codex): 2/2. Top-1 chỉ hướng dẫn dump/load thông thường, nhưng top-3 library_json:u002 giữ nguyên cảnh báo repeated dump; đánh giá cả top-3 nên đủ.
+Nhãn grounding bản chính: 2/2. Top-1 chỉ hướng dẫn dump/load thông thường, nhưng top-3 library_json:u002 giữ nguyên cảnh báo repeated dump; đánh giá cả top-3 nên đủ.
 
 ## GRD-T02-C: grounding và metadata top-3
 Câu hỏi: In the library reference, why do repeated json.dump calls on the same file produce invalid JSON?
@@ -2256,7 +2256,7 @@ Customizing JSON object encoding:
 
 ````
 
-Nhãn grounding bản chính (Codex): 2/2. Sau filter, cảnh báo đầy đủ ở top-2 library_json:u002; không suy diễn từ repeated property names ở top-1.
+Nhãn grounding bản chính: 2/2. Sau filter, cảnh báo đầy đủ ở top-2 library_json:u002; không suy diễn từ repeated property names ở top-1.
 
 ## GRD-T03-A: grounding và metadata top-3
 Câu hỏi: What does the standard JSON decoder do by default when an object repeats the same property name?
@@ -2328,7 +2328,7 @@ A positive integer indents that many spaces per level;
 a string (such as "\t
 ````
 
-Nhãn grounding bản chính (Codex): 2/2. Top-1 library_json:u006 nói mặc định không raise, giữ cặp cuối, có ví dụ x=1,2,3 cho kết quả x=3.
+Nhãn grounding bản chính: 2/2. Top-1 library_json:u006 nói mặc định không raise, giữ cặp cuối, có ví dụ x=1,2,3 cho kết quả x=3.
 
 ## GRD-T03-B: grounding và metadata top-3
 Câu hỏi: What does the standard JSON decoder do by default when an object repeats the same property name?
@@ -2429,7 +2429,7 @@ and the index in s where the document ended.
 
 ````
 
-Nhãn grounding bản chính (Codex): 2/2. Top-1 có cả điều kiện mặc định và hành vi giữ cặp tên-giá trị cuối; object_pairs_hook được nêu là cách thay đổi hành vi.
+Nhãn grounding bản chính: 2/2. Top-1 có cả điều kiện mặc định và hành vi giữ cặp tên-giá trị cuối; object_pairs_hook được nêu là cách thay đổi hành vi.
 
 ## GRD-T03-C: grounding và metadata top-3
 Câu hỏi: What does the standard JSON decoder do by default when an object repeats the same property name?
@@ -2530,7 +2530,7 @@ and the index in s where the document ended.
 
 ````
 
-Nhãn grounding bản chính (Codex): 2/2. T03 không có filter, top-3 giống B; top-1 chứa đầy đủ hành vi mặc định cần trả lời.
+Nhãn grounding bản chính: 2/2. T03 không có filter, top-3 giống B; top-1 chứa đầy đủ hành vi mặc định cần trả lời.
 
 ## GRD-T04-A: grounding và metadata top-3
 Câu hỏi: How is Python None written by csv.writer, and is that conversion reversible?
@@ -2598,7 +2598,7 @@ Examples
 The simplest example of reading a CSV f
 ````
 
-Nhãn grounding bản chính (Codex): 2/2. Top-2 library_csv:u001 ghi None thành chuỗi rỗng và chuyển đổi không đảo ngược. Thiếu đuôi quote về cursor.fetch* không làm thiếu hai ý của câu hỏi; strict hit vẫn giữ 0.
+Nhãn grounding bản chính: 2/2. Top-2 library_csv:u001 ghi None thành chuỗi rỗng và chuyển đổi không đảo ngược. Thiếu đuôi quote về cursor.fetch* không làm thiếu hai ý của câu hỏi; strict hit vẫn giữ 0.
 
 ## GRD-T04-B: grounding và metadata top-3
 Câu hỏi: How is Python None written by csv.writer, and is that conversion reversible?
@@ -2705,7 +2705,7 @@ reversible transformation, it makes it easier to dump SQL NULL data values to
 CSV files without preprocessing the 
 ````
 
-Nhãn grounding bản chính (Codex): 2/2. Top-3 library_csv:u001 có đủ None -> empty string và not reversible. Gold quote bị cắt ở đoạn giải thích SQL cursor, nên strict miss không đồng nghĩa thiếu thông tin trả lời.
+Nhãn grounding bản chính: 2/2. Top-3 library_csv:u001 có đủ None -> empty string và not reversible. Gold quote bị cắt ở đoạn giải thích SQL cursor, nên strict miss không đồng nghĩa thiếu thông tin trả lời.
 
 ## GRD-T04-C: grounding và metadata top-3
 Câu hỏi: How is Python None written by csv.writer, and is that conversion reversible?
@@ -2812,7 +2812,7 @@ reversible transformation, it makes it easier to dump SQL NULL data values to
 CSV files without preprocessing the 
 ````
 
-Nhãn grounding bản chính (Codex): 2/2. Không filter ở T04, kết quả giống B; đủ hai ý trong top-3. Đây là nhận xét ngữ nghĩa, không sửa strict metrics.
+Nhãn grounding bản chính: 2/2. Không filter ở T04, kết quả giống B; đủ hai ý trong top-3. Đây là nhận xét ngữ nghĩa, không sửa strict metrics.
 
 ## GRD-T05-A: grounding và metadata top-3
 Câu hỏi: In the library reference, does Path.mkdir(exist_ok=True) accept an existing path that is a regular file rather than a directory?
@@ -2880,7 +2880,7 @@ The open() , write_text() and write_bytes() methods are often used to create fil
 P
 ````
 
-Nhãn grounding bản chính (Codex): 2/2. Top-1 library_pathlib:u011 giữ đủ ngoại lệ: exist_ok=true vẫn raise khi đường dẫn tồn tại nhưng không phải directory; top-2 có chữ ký Path.mkdir để đối chiếu.
+Nhãn grounding bản chính: 2/2. Top-1 library_pathlib:u011 giữ đủ ngoại lệ: exist_ok=true vẫn raise khi đường dẫn tồn tại nhưng không phải directory; top-2 có chữ ký Path.mkdir để đối chiếu.
 
 ## GRD-T05-B: grounding và metadata top-3
 Câu hỏi: In the library reference, does Path.mkdir(exist_ok=True) accept an existing path that is a regular file rather than a directory?
@@ -3050,7 +3050,7 @@ anchors differ (e.g. if one path is absolute and the other relative.)
 
 ````
 
-Nhãn grounding bản chính (Codex): 2/2. Top-1 có chữ ký mkdir, các mặc định và ngoại lệ path tồn tại không phải directory; không nhầm với touch ở cùng trang.
+Nhãn grounding bản chính: 2/2. Top-1 có chữ ký mkdir, các mặc định và ngoại lệ path tồn tại không phải directory; không nhầm với touch ở cùng trang.
 
 ## GRD-T05-C: grounding và metadata top-3
 Câu hỏi: In the library reference, does Path.mkdir(exist_ok=True) accept an existing path that is a regular file rather than a directory?
@@ -3220,7 +3220,7 @@ anchors differ (e.g. if one path is absolute and the other relative.)
 
 ````
 
-Nhãn grounding bản chính (Codex): 2/2. Top-1 như B, có đúng điều kiện exist_ok và loại đường dẫn. Metadata library_reference phù hợp yêu cầu người dùng.
+Nhãn grounding bản chính: 2/2. Top-1 như B, có đúng điều kiện exist_ok và loại đường dẫn. Metadata library_reference phù hợp yêu cầu người dùng.
 
 ## GOLD-D01: gold
 What happens if list.remove(value) cannot find that value?

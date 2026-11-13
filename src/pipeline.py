@@ -266,8 +266,12 @@ def verify():
     if (ROOT/"results/traces_test.jsonl").exists():
         from datetime import datetime
         assert datetime.fromisoformat(read_json("results/selection.json")["selected_at"]) < min(datetime.fromisoformat(t["retrieved_at"]) for t in read_jsonl("results/traces_test.jsonl"))
+    audit_state = read_json("results/audit/status.json") if (ROOT/"results/audit/status.json").exists() else None
+    human_audit = "pending until student confirmation supplied"
+    if audit_state and all(g["pending"] == 0 for g in audit_state["groups"].values()):
+        human_audit = f"confirmed by {audit_state['reviewer']}; 110/110 rows accepted; see results/audit/human_confirmation.json"
     result = {"verified_at": now(), "checks_passed": True, "content_units": len(pages), "questions": len(questions),
-        "automatic_verification_only": True, "human_audit": "pending until signed labels supplied"}
+        "automatic_verification_only": True, "human_audit": human_audit}
     write_json("results/verification.json", result)
     print(json.dumps(result, indent=2))
 

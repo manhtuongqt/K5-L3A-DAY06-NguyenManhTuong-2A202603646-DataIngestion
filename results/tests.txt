@@ -1,3 +1,6 @@
+test_changed_content_invalidates_previous_confirmation (test_human_confirmation.HumanConfirmationTests.test_changed_content_invalidates_previous_confirmation) ... ok
+test_explicit_confirmation_accepts_exact_reviewed_row (test_human_confirmation.HumanConfirmationTests.test_explicit_confirmation_accepts_exact_reviewed_row) ... ok
+test_unapproved_row_cannot_be_auto_confirmed (test_human_confirmation.HumanConfirmationTests.test_unapproved_row_cannot_be_auto_confirmed) ... ok
 test_benchmark_lock_and_source_backed_filter (test_pipeline.ContentTests.test_benchmark_lock_and_source_backed_filter) ... ok
 test_extract_body_no_nav_no_duplicate_list_paragraph (test_pipeline.ContentTests.test_extract_body_no_nav_no_duplicate_list_paragraph) ... ok
 test_fixed_overlap_and_complete_coverage (test_pipeline.ContentTests.test_fixed_overlap_and_complete_coverage) ... ok
@@ -9,6 +12,6 @@ test_units_contiguous_minimum_and_no_padded_tail (test_pipeline.ContentTests.tes
 test_real_vector_persistence_filter_and_obsolete_point_removal (test_pipeline.QdrantIntegrationTests.test_real_vector_persistence_filter_and_obsolete_point_removal) ... ok
 
 ----------------------------------------------------------------------
-Ran 9 tests in 0.082s
+Ran 12 tests in 0.076s
 
 OK

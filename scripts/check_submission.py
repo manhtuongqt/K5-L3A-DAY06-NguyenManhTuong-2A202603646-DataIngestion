@@ -63,10 +63,12 @@ def main():
     assert len(labels)==110 and len({r['id'] for r in labels})==110
     for row in labels:
         allowed={'0','1','2'} if row['kind'] in ('coherence','grounding') else {'0','1'}
-        assert row['label'] in allowed and row['reason'] and row['annotator'],f"Missing primary audit data: {row['id']}"
+        assert row['label'] in allowed and row['reason'],f"Missing primary audit data: {row['id']}"
+    assert 'annotator' not in labels[0],"Main audit CSV uses the confirmed reviewer fields"
     audit=read_json("results/audit/status.json")
     pending=sum(g['pending'] for g in audit['groups'].values())
     gold_valid=all(r['human_label']=='1' for r in labels if r['kind']=='gold')
+    assert pending == sum(not (r['human_label'] != '' and all(r[k] for k in ('human_reason','reviewer','reviewed_at'))) for r in labels)
     result={"checked_at":now(),"technical_checks_passed":True,"full_submission_ready":pending==0 and gold_valid,
         "unit_integration_tests":{"run":test_result.testsRun,"failures":len(test_result.failures),"errors":len(test_result.errors)},
         "frozen_input_and_trace_verification":True,"artifact_structure":True,"local_file_links":True,

@@ -10,7 +10,7 @@ Tôi xây pipeline truy xuất tài liệu Python để so sánh ba cách chuẩ
 - Benchmark khóa trước truy xuất: **15 dev / 5 test**, 6 câu có filter. A fixed 500/50, B theo đoạn tối đa 1.000 ký tự, C dùng nguyên index B và thêm filter từ câu hỏi.
 - Dev Hit@1 / Evidence Hit@3: A **9/15 / 10/15**, B **12/15 / 13/15**, C **12/15 / 13/15**.
 - Test Hit@1 / Evidence Hit@3: A **2/5 / 4/5**, B **3/5 / 4/5**, C **3/5 / 4/5**. Chọn B bằng dev, không chọn lại theo test.
-- **Bản audit chính đã điền đủ 110 nhãn và lý do**, dựa trên nguồn/trace thật. Người chấm hỗ trợ được ghi là Codex (AI); phần tôi đối chiếu thủ công sẽ được xác nhận riêng trước khi chốt gate nộp.
+- **Tôi đã đối chiếu và xác nhận đủ 110 dòng audit** ngày 13/11/2026. Bảng chính ghi người kiểm tra là Nguyễn Mạnh Tường, có nhãn/lý do đã xác nhận và hồ sơ [xác nhận](results/audit/human_confirmation.json). Codex hỗ trợ chuẩn bị bản chấm ban đầu; đây là lượt người học duyệt bản hỗ trợ, không phải chấm mù độc lập.
 
 Đọc [báo cáo cá nhân](report/individual/2A202603646_NguyenManhTuong.md), [gate checklist](docs/GATE_CHECKLIST.md), [gói audit](results/audit/README.md), [trace dev](results/traces_dev.jsonl) và [trace test](results/traces_test.jsonl). Điểm exact quote có giới hạn: T04 chứa đủ thông tin chính nhưng thiếu phần cuối quote nên vẫn tính strict miss; không sửa gold sau test để tăng điểm.
 
@@ -55,7 +55,7 @@ Không cần `.env`, key model, key tìm kiếm hay tài khoản vector DB. Mode
 .\.venv\Scripts\python.exe scripts/check_submission.py
 ```
 
-Hai lệnh kiểm tra input/hash, cấu trúc, trace và bảng đo; không gọi lại embedding/benchmark. Gate audit chỉ đạt sau khi có nhãn human hợp lệ. Chỉ đọc báo cáo và trace thì không cần cài model.
+Hai lệnh kiểm tra input/hash, cấu trúc, trace và bảng đo; không gọi lại embedding/benchmark. Gate audit đã có đủ 110 nhãn human hợp lệ theo xác nhận của tôi. Chỉ đọc báo cáo và trace thì không cần cài model.
 
 ## Tái lập đầy đủ, giữ nguyên bằng chứng đã nộp
 
@@ -84,11 +84,11 @@ Danh sách trên giải thích pipeline, **không chạy lại nguyên xi trên 
 
 Để chỉ kiểm tra DB sau khi đã build: `python -m src.pipeline check-store`. Để chạy unit/integration tests: `python -m unittest discover -s tests -v`; integration test cần vector thật do stage index tạo, không fallback mock khi thiếu.
 
-## Hoàn thành audit trước khi nộp
+## Audit đã xác nhận
 
-Mở [REVIEW.md](results/audit/REVIEW.md), đối chiếu nguồn rồi điền các cột `human_label`, `human_reason`, `reviewer`, `reviewed_at` trong [labels.csv](results/audit/labels.csv). Có 30 mẫu coherence, 45 metadata, 15 grounding và 20 gold. Sau khi đọc và điền thật, chạy lại `audit`, `report`, `verify` và kiểm tra bài nộp. Các cột xác nhận hiện tại được giữ lại khi tạo lại gói audit.
+Tôi đã đối chiếu [REVIEW.md](results/audit/REVIEW.md) và xác nhận toàn bộ [labels.csv](results/audit/labels.csv): 30 coherence, 45 metadata, 15 grounding và 20 gold. Các cột `human_label`, `human_reason`, `reviewer`, `reviewed_at` ghi nhận sự chấp nhận của tôi; cột `annotator` đã bỏ. Hồ sơ xác nhận gắn hash với nhãn/lý do từng dòng để không tự áp dụng cho nội dung bị sửa sau này. Benchmark và điểm strict giữ nguyên.
 
-Tôi cần tự hiểu và giải thích bài; Codex hỗ trợ viết code, chuẩn bị benchmark và phân tích. Chưa có tuyên bố tôi đã chấm tay, trình bày với coach hoặc nộp LMS. Thông tin nguồn/giấy phép xem [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Codex hỗ trợ viết code, chuẩn bị benchmark, bản chấm ban đầu và phân tích; tôi đối chiếu, chấp nhận audit và tự giải thích bài. Chưa nộp LMS hoặc ghi nhận trình bày với coach; tôi tự thực hiện các bước đó. Thông tin nguồn/giấy phép xem [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 ---
 

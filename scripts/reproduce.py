@@ -25,6 +25,8 @@ def main():
     shutil.copy2(ROOT/"results/ingestion_log.json",work/"results/ingestion_log.json")
     shutil.copy2(ROOT/"results/audit/ai_review.json",work/"results/audit/ai_review.json")
     shutil.copy2(ROOT/"results/audit/content_review.json",work/"results/audit/content_review.json")
+    if (ROOT/"results/audit/human_confirmation.json").exists():
+        shutil.copy2(ROOT/"results/audit/human_confirmation.json",work/"results/audit/human_confirmation.json")
     if (ROOT/".local/model").exists():
         shutil.copytree(ROOT/".local/model",work/".local/model")
     commands = [[sys.executable,"-m","src.pipeline",stage] for stage in ("index","check-store","dev","test","audit","verify")]

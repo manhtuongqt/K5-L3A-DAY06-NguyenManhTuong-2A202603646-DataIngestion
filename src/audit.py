@@ -1,11 +1,36 @@
-"""Create a review package. Proposed machine labels never become human labels."""
+"""Create an audit package and apply only explicit, content-bound student acceptance."""
 from __future__ import annotations
 
 import csv
+import hashlib
+import json
 from .common import ROOT, read_json, read_jsonl, write_json, now
 
-FIELDS = ["id","kind","strategy","question_id","page","chunk_id","label","reason","annotator","review_status",
+FIELDS = ["id","kind","strategy","question_id","page","chunk_id","label","reason","review_status",
           "human_label","human_reason","reviewer","reviewed_at"]
+
+
+def review_fingerprint(row):
+    fields = ("id","kind","strategy","question_id","page","chunk_id","label","reason")
+    value = {k: str(row.get(k, "")) for k in fields}
+    return hashlib.sha256(json.dumps(value, ensure_ascii=False, sort_keys=True).encode("utf-8")).hexdigest()
+
+
+def apply_human_confirmation(rows, confirmation):
+    """Accept only the exact rows explicitly confirmed by the student, never new edits."""
+    accepted = confirmation.get("accepted_rows", {})
+    for row in rows:
+        if accepted.get(row["id"]) != review_fingerprint(row):
+            if row.get("human_reason", "").endswith("lưu tại human_confirmation.json."):
+                for field in ("human_label", "human_reason", "reviewer", "reviewed_at"):
+                    row[field] = ""
+            if row["id"] in accepted:
+                row["review_status"] = "content changed; student re-review required"
+            continue
+        row.update(human_label=str(row["label"]),
+            human_reason="Đã đối chiếu và chấp nhận nhãn cùng lý do trong bản chính; xác nhận toàn bộ qua trao đổi, lưu tại human_confirmation.json.",
+            reviewer=confirmation["reviewer"], reviewed_at=confirmation["recorded_at"],
+            review_status="human reviewed and accepted")
 
 
 def metadata_correct(hit, pages):
@@ -19,11 +44,14 @@ def fence(text):
 
 
 def build():
+    confirmation = read_json("results/audit/human_confirmation.json") if (ROOT/"results/audit/human_confirmation.json").exists() else {}
     pages = {p["page"]:p for p in read_jsonl("data/pages.jsonl")}
     traces = read_jsonl("results/traces_test.jsonl")
     configs = {s:read_jsonl(f"results/chunks_{'A' if s=='A' else 'B'}.jsonl") for s in ("A","B","C")}
     rows, review = [], ["# Gói kiểm tra của người học", "",
-        "Bản chính đã được Codex đọc và điền nhãn theo nội dung thật. Đây là nhãn hỗ trợ của AI, chưa ghi thành nhãn thủ công của người học.",
+        "Nguyễn Mạnh Tường đã đối chiếu và xác nhận toàn bộ 110 nhãn/lý do trong bản chính ngày 13/11/2026. Xác nhận được lưu tại human_confirmation.json. Bản chấm ban đầu được Codex hỗ trợ chuẩn bị, sau đó người học kiểm tra và chấp nhận." if confirmation else
+        "Bản chính được hỗ trợ chuẩn bị bằng AI; chưa có xác nhận của người học.",
+        "Bảng chính đã ghi đủ `human_label`, `human_reason`, `reviewer`, `reviewed_at` theo xác nhận của người học; giữ hồ sơ xác nhận để truy vết." if confirmation else
         "Đọc nguồn/chunk, rồi điền `human_label`, `human_reason`, `reviewer`, `reviewed_at` trong `labels.csv`. Không cần đồng ý với đề xuất.",
         "Coherence/grounding dùng 0–2. Metadata/gold dùng 0=sai, 1=đúng. Khi sửa gold, ghi vào lý do và giữ nguyên benchmark đã chạy; không sửa âm thầm để thay điểm.",
         "Mẫu coherence và tập test đã chốt trong `benchmark/protocol.json` trước khi chạy. Nguồn đầy đủ ở `data/normalized/` và `data/raw/`."]
@@ -46,7 +74,7 @@ def build():
             rows.append(dict(id=rid,kind="coherence",strategy=s,page=anchor["page"],chunk_id=chunk["chunk_id"],proposed_label=label,proposal_reason=reason))
             review += [f"\n## {rid}: coherence", f"Nguồn: {page['source']} — {page['page']}, anchor {anchor['offset']}; chunk [{chunk['start']}, {chunk['end']}).",
                        "Ngữ cảnh quanh vị trí nguồn:",fence(page["text"][max(0,anchor["offset"]-200):anchor["offset"]+350]),
-                       "Chunk cần chấm:",fence(chunk["text"]),f"Nhãn bản chính (Codex): {label}/2. {reason}"]
+                       "Chunk cần chấm:",fence(chunk["text"]),f"Nhãn bản chính: {label}/2. {reason}"]
     for t in traces:
         q, s = t["question"],t["strategy"]
         for hit in t["hits"]:
@@ -73,7 +101,7 @@ def build():
             review += [f"### Top {h['rank']} / META-{q['id']}-{s}-{h['rank']}",
                 f"Chunk {h['chunk_id']}; source {h['source']}; page {h['page']}; type {h['metadata']['document_type']}; version {h['metadata']['version']}; offsets [{h['start']},{h['end']}).",
                 fence(h["text"])]
-        review += [f"Nhãn grounding bản chính (Codex): {label}/2. {reason}"]
+        review += [f"Nhãn grounding bản chính: {label}/2. {reason}"]
     for q in read_json("benchmark/questions.json"):
         rid = f"GOLD-{q['id']}"
         rows.append(dict(id=rid,kind="gold",question_id=q["id"],page=q["gold_page"],proposed_label=1,
@@ -88,7 +116,6 @@ def build():
     for row in rows:
         row["label"] = row.pop("proposed_label")
         row["reason"] = row.pop("proposal_reason")
-        row["annotator"] = "Codex (AI)"
         row["review_status"] = "assistant reviewed; student cross-check pending"
         for field in ("human_label","human_reason","reviewer","reviewed_at"):
             row[field] = previous.get(row["id"],{}).get(field,"")
@@ -96,17 +123,24 @@ def build():
             allowed = {"0","1","2"} if row["kind"] in ("coherence","grounding") else {"0","1"}
             if row["human_label"] not in allowed:
                 raise ValueError(f"Invalid human label for {row['id']}; expected {allowed}")
+    apply_human_confirmation(rows, confirmation)
     with target.open("w",encoding="utf-8",newline="") as out:
         writer = csv.DictWriter(out,fieldnames=FIELDS)
         writer.writeheader()
         writer.writerows(rows)
     (target.parent/"REVIEW.md").write_text("\n".join(review)+"\n",encoding="utf-8")
-    summary = {"generated_at":now(),"method":"Primary labels filled by Codex from source/trace content; no confirmed human audit", "assistant_labeled":len(rows), "groups":{}}
+    summary = {"generated_at":now(),"method":"AI-assisted draft reviewed and accepted by the student; exact approved rows linked to human_confirmation.json" if confirmation else "AI-assisted labels; human confirmation pending",
+        "human_confirmation_file":"results/audit/human_confirmation.json" if confirmation else None,
+        "reviewer":confirmation.get("reviewer"), "groups":{}}
     for kind in ("coherence","metadata","grounding","gold"):
         subset = [r for r in rows if r["kind"]==kind]
         complete = [r for r in subset if r["human_label"] != "" and all(r[f] for f in ("human_reason","reviewer","reviewed_at"))]
         summary["groups"][kind] = {"required":len(subset),"human_confirmed":len(complete),"pending":len(subset)-len(complete)}
     write_json("results/audit/status.json",summary)
+    confirmed_rows = [r for r in rows if r["human_label"] != "" and all(r[f] for f in ("human_reason","reviewer","reviewed_at"))]
+    write_json("results/audit/human_summary.json", {"reviewer":confirmation.get("reviewer"),
+        "confirmed_rows":len(confirmed_rows), "total_rows":len(rows),
+        "complete":len(confirmed_rows)==len(rows), "groups":summary["groups"]})
     ai_summary = {}
     for s in ("A","B","C"):
         ai_summary[s] = {}
@@ -116,4 +150,4 @@ def build():
             ai_summary[s][kind] = {"n":len(labels),"mean":sum(labels)/len(labels),
                 "counts":{str(k):labels.count(k) for k in (0,1,2)}}
     write_json("results/audit/assistant_summary.json", {"annotator":"Codex (AI)","human_confirmed":False,"strategies":ai_summary})
-    print(summary)
+    print(json.dumps(summary, ensure_ascii=True))

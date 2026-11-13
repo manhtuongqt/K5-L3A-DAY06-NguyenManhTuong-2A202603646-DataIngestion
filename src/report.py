@@ -34,6 +34,11 @@ def build():
     pages = {p["page"]:p for p in read_jsonl("data/pages.jsonl")}
     with (ROOT/"results/audit/labels.csv").open(encoding="utf-8",newline="") as file:
         rows = list(csv.DictReader(file))
+    audit_state = read_json("results/audit/status.json")
+    confirmed = all(g["pending"] == 0 for g in audit_state["groups"].values())
+    approval_text = "Tôi đã đối chiếu toàn bộ 110 nhãn cùng lý do và xác nhận chấp nhận ngày 13/11/2026. Bản chấm được Codex hỗ trợ chuẩn bị trước khi tôi kiểm tra; đây không phải hai lượt chấm độc lập hoặc chấm mù. Xác nhận được ghi tại [human_confirmation.json](../../results/audit/human_confirmation.json), gắn với từng dòng đã duyệt bằng hash." if confirmed else "Bản chấm hỗ trợ đã điền đủ; nhãn thủ công của người học đang chờ xác nhận."
+    gold_approval = "Tôi đã đối chiếu và chấp nhận toàn bộ gold/evidence hiện có; hồ sơ xác nhận ở results/audit/human_confirmation.json." if confirmed else "Ngữ nghĩa gold và các cách chứng minh tương đương cần người học duyệt."
+    review_limit = "Tác giả đã kiểm tra và chấp nhận nhãn hỗ trợ, nhưng vẫn có nguy cơ thiên lệch vì không chấm độc lập/mù." if confirmed else "Chưa có audit thủ công được người học xác nhận."
     replay_note = "Chưa chạy kiểm tra tái lập toàn bộ."
     if (ROOT/"results/reproduction.json").exists():
         replay=read_json("results/reproduction.json")
@@ -96,7 +101,7 @@ Mỗi chunk có `document_id`, `source`, `page`, `start/end` trong đơn vị v�
 
 A–B đổi cách chunk. B–C chỉ đổi filter; query vector, tập chunk, model và cosine giữ nguyên. C chạy không filter cho câu không yêu cầu phạm vi. Không dùng gold document/page hay đáp án để lọc.
 
-[20 câu hỏi](../../benchmark/questions.json) được viết trước khi truy xuất: D01–D15 là dev từ tutorial, T01–T05 là test từ json/csv/pathlib. Nguồn gold test không trùng tài liệu gold dev, nhưng tất cả cùng thuộc corpus Python; chưa phải kiểm định trên lĩnh vực mới. Có 6 câu filter: D02/D06/D12 và T01/T02/T05. Ngữ cảnh tutorial/library reference được viết ngay trong câu hỏi. Gold có đáp án, nguồn/page, quote, offsets và danh sách alternative chứa đúng quote. Code đã kiểm tra toàn bộ quote có trong snapshot, nhưng **ngữ nghĩa và các cách chứng minh tương đương vẫn cần người học duyệt**.
+[20 câu hỏi](../../benchmark/questions.json) được viết trước khi truy xuất: D01–D15 là dev từ tutorial, T01–T05 là test từ json/csv/pathlib. Nguồn gold test không trùng tài liệu gold dev, nhưng tất cả cùng thuộc corpus Python; chưa phải kiểm định trên lĩnh vực mới. Có 6 câu filter: D02/D06/D12 và T01/T02/T05. Ngữ cảnh tutorial/library reference được viết ngay trong câu hỏi. Gold có đáp án, nguồn/page, quote, offsets và danh sách alternative chứa đúng quote. Code đã kiểm tra toàn bộ quote có trong snapshot. {gold_approval}
 
 [Protocol](../../benchmark/protocol.json) khóa tiêu chí: ưu tiên dev Evidence Hit@3, rồi Hit@1, rồi latency tìm kiếm trung bình, cuối cùng thứ tự strategy. Mẫu coherence cố định: 10 page ID đầu sau sắp xếp, offset 200, chọn chunk chứa offset xuất hiện sớm nhất nếu có overlap. Metadata và grounding dùng đủ 5 câu test của từng strategy. [lock.json](../../benchmark/lock.json) giữ hash corpus/manifest/model/questions/protocol.
 
@@ -118,25 +123,21 @@ Trace đầy đủ: [dev](../../results/traces_dev.jsonl), [test](../../results/
 
 ### 3.2–3.4. Coherence, metadata và grounding
 
-Bản audit chính đã có đủ **110 nhãn và lý do theo từng mẫu**, do Codex đọc source/trace và hỗ trợ điền để tôi đối chiếu sau. Nhãn này có người chấm ghi rõ `Codex (AI)`, không giả thành nhãn thủ công của tôi. [Bảng chính](../../results/audit/labels.csv), [nhận xét nội dung](../../results/audit/content_review.json) và [tổng hợp nhãn hỗ trợ](../../results/audit/assistant_summary.json).
+{approval_text}
 
-| Strategy | Coherence do Codex chấm /2 | Metadata đủ/đúng do Codex đối chiếu | Grounding do Codex chấm: số mức 0/1/2; trung bình |
-|---|---|---|---|
-{chr(10).join(assistant_rows)}
-
-Trạng thái xác nhận của người học được giữ riêng:
+[Bảng audit chính](../../results/audit/labels.csv) ghi người kiểm tra ở `reviewer`, nhãn/lý do đã xác nhận ở `human_label`/`human_reason`. [Nhận xét nội dung ban đầu](../../results/audit/content_review.json) được giữ để truy vết hỗ trợ.
 
 | Strategy | Coherence thủ công /2 | Metadata thủ công; kiểm tra tự động | Filter compliance trên 3 câu test có filter | Grounding thủ công /2 |
 |---|---|---|---|---|
 {chr(10).join(audit_rows)}
 
-Đây là **trạng thái chờ xác nhận**, không phải điểm 0. Bản chính đã điền 30 coherence, 45 metadata, 15 grounding và 20 gold. Gói [REVIEW](../../results/audit/REVIEW.md) ghép nguồn/chunk để đối chiếu; [hướng dẫn](../../results/audit/README.md) nêu cách sửa và xác nhận. Không ghi người học đã chấm khi chưa có cột xác nhận.
+Phạm vi gồm 30 coherence, 45 metadata, 15 grounding và 20 gold. Gói [REVIEW](../../results/audit/REVIEW.md) ghép nguồn/chunk để đối chiếu; [trạng thái audit](../../results/audit/status.json) ghi số mẫu đã xác nhận. Khi nhãn/lý do của một dòng thay đổi, xác nhận cũ không được tự áp dụng cho nội dung mới.
 
-Coherence dùng thang 0=bị cắt mất ý/chủ thể, 1=hiểu được phần nào nhưng thiếu ngữ cảnh, 2=tự hiểu được và đủ ý. Nhãn Codex đã xét nội dung đầy đủ của 20 chunk A/B khác nhau; C dùng đúng 10 chunk B. A có nhiều phần bị cắt giữa câu/code; B giữ đoạn tốt hơn nhưng vẫn có heading hoặc chữ ký API thiếu phần giải thích, nên không mặc định cho B điểm 2. Mẫu 10 anchor đầu theo thứ tự ID tập trung vào csv/json, chưa đại diện mọi chương. Trung bình hỗ trợ A=1,00; B/C=1,30, chưa phải điểm thủ công đã được người học xác nhận.
+Coherence dùng thang 0=bị cắt mất ý/chủ thể, 1=hiểu được phần nào nhưng thiếu ngữ cảnh, 2=tự hiểu được và đủ ý. Nội dung gồm 20 chunk A/B khác nhau; C dùng đúng 10 chunk B. A có nhiều phần bị cắt giữa câu/code; B giữ đoạn tốt hơn nhưng vẫn có heading hoặc chữ ký API thiếu phần giải thích, nên không mặc định cho B điểm 2. Mẫu 10 anchor đầu theo thứ tự ID tập trung vào csv/json, chưa đại diện mọi chương. Điểm trung bình được tính từ nhãn đã xác nhận trong bảng trên.
 
-Metadata được code kiểm tra cả giá trị nguồn/type/version và text/offset so với trang chuẩn. Mỗi strategy có 15/15 bản ghi top-3 test đúng theo phép đối chiếu đó; vẫn cần kiểm tra tay với HTML gốc. Filter compliance tính theo **câu hỏi**: top-3 của câu phải đều đúng phạm vi; A/B không bật filter nên có thể lệch phạm vi dù metadata bản ghi vẫn chính xác. C đạt 3/3; B đạt 2/3; A đạt 1/3. Với tập không có câu filter phải ghi N/A, không mặc định 100%.
+Metadata được code kiểm tra cả giá trị nguồn/type/version và text/offset so với trang chuẩn; người học đối chiếu và chấp nhận nhãn tại bảng audit. Mỗi strategy có 15/15 bản ghi top-3 test đúng theo phép đối chiếu đó. Filter compliance tính theo **câu hỏi**: top-3 của câu phải đều đúng phạm vi; A/B không bật filter nên có thể lệch phạm vi dù metadata bản ghi vẫn chính xác. C đạt 3/3; B đạt 2/3; A đạt 1/3. Với tập không có câu filter phải ghi N/A, không mặc định 100%.
 
-Grounding đã được Codex đọc đủ 5 test mỗi strategy và ghi lý do riêng. Cả 5 câu của mỗi cấu hình được đề xuất mức 2, trung bình 2,00/2: T01/T02/T03/T05 có evidence đúng nguồn trong top-3; T04 có đủ hai ý None thành chuỗi rỗng và không đảo ngược, dù thiếu đuôi quote. Không chấm theo top-1 riêng và không xem strict miss là grounding=0 tự động. [Nhận xét T04](../../results/audit/ai_review.json) ghi rõ ngoại lệ này. Người học chưa xác nhận nhãn, nên các số trên chỉ là đánh giá hỗ trợ, không thay nhãn thủ công bắt buộc. Điểm strict hiện tại giữ nguyên.
+Grounding xét đủ 5 test mỗi strategy và có lý do riêng. T01/T02/T03/T05 có evidence đúng nguồn trong top-3; T04 có đủ hai ý None thành chuỗi rỗng và không đảo ngược, dù thiếu đuôi quote. Không chấm theo top-1 riêng và không xem strict miss là grounding=0 tự động. [Nhận xét T04](../../results/audit/ai_review.json) ghi rõ ngoại lệ đã được đối chiếu; điểm strict hiện tại giữ nguyên, không nâng tự động theo nhãn grounding.
 
 ### 3.5. Tác động dữ liệu, tài nguyên và đánh đổi
 
@@ -155,9 +156,9 @@ B→C không tăng strict retrieval trong bộ này; tác dụng quan sát là t
 1. **D03/A**, gold `tutorial_datastructures:u004`: điều kiện tuple làm dictionary key và ngoại lệ mutable bị chia qua các chunk. Top-1 đúng trang nhưng bắt đầu giữa chữ; một chunk khác có đầu câu nhưng thiếu cuối. Không đủ quote trong một chunk nên Hit@3=0, trong khi B/C hit. Đây là vấn đề ranh giới chunk.
 2. **D01/B và C**, gold `tutorial_datastructures:u001`: hỏi lỗi của `list.remove` nhưng top-1 chứa mô tả `pop`/`index`, top-2 về `del`, top-3 về dictionary. Không lấy ValueError của `index` làm bằng chứng cho `remove`. A tìm được gold trong top-3. Đây là đánh đổi giữa ngữ cảnh và độ tập trung.
 3. **D09/A/B/C**, gold `tutorial_modules:u002`: truy xuất nghiêng về module khi import, thiếu đoạn khi chạy script gán `__name__='__main__'`. Không phải thiếu dữ liệu nguồn; xếp hạng chưa phân biệt tốt tình huống.
-4. **T04/A/B/C**, gold `library_csv:u001`: strict hit=0 vì thiếu phần cuối quote về `cursor.fetch*`; tuy nhiên A top-2, B/C top-3 đều nói None thành chuỗi rỗng và việc chuyển đổi không đảo ngược. Đây là hạn chế của gold quote/check exact, không đủ cơ sở gọi toàn bộ retrieval là không có bằng chứng. Chờ xác nhận ngữ nghĩa; không sửa quote sau khi xem test để làm đẹp điểm.
+4. **T04/A/B/C**, gold `library_csv:u001`: strict hit=0 vì thiếu phần cuối quote về `cursor.fetch*`; tuy nhiên A top-2, B/C top-3 đều nói None thành chuỗi rỗng và việc chuyển đổi không đảo ngược. Đây là hạn chế của gold quote/check exact, không đủ cơ sở gọi toàn bộ retrieval là không có bằng chứng. Nhãn grounding được đối chiếu riêng; không sửa quote sau khi xem test để làm đẹp điểm.
 
-Giới hạn chính: 5 test rất nhỏ (một câu tương đương 20 điểm phần trăm), câu hỏi/gold do AI hỗ trợ soạn, chưa có audit thủ công, chỉ tiếng Anh và một lĩnh vực, HTML trích xuất không giữ đủ bảng/hình, exact quote có thể phạt bằng chứng đủ nhưng khác ranh giới. Model nhỏ và chunking theo ký tự có thể chưa phù hợp tài liệu tiếng Việt hoặc bảng phức tạp. Không chạy LLM sinh câu trả lời, không đo answer accuracy hay độ ổn định qua nhiều seed/model. Chưa chứng minh kết quả tổng quát ngoài corpus này.
+Giới hạn chính: 5 test rất nhỏ (một câu tương đương 20 điểm phần trăm), câu hỏi/gold do AI hỗ trợ soạn, chỉ tiếng Anh và một lĩnh vực, HTML trích xuất không giữ đủ bảng/hình, exact quote có thể phạt bằng chứng đủ nhưng khác ranh giới. {review_limit} Model nhỏ và chunking theo ký tự có thể chưa phù hợp tài liệu tiếng Việt hoặc bảng phức tạp. Không chạy LLM sinh câu trả lời, không đo answer accuracy hay độ ổn định qua nhiều seed/model. Chưa chứng minh kết quả tổng quát ngoài corpus này.
 
 ## 5. Lựa chọn, tái lập và vai trò AI
 
@@ -167,7 +168,7 @@ Lệnh setup và tái lập ở [README](../../README.md). Code chạy thật n�
 
 {replay_note}
 
-Codex hỗ trợ viết pipeline, soạn câu hỏi/gold, đọc log, tính chỉ số và chuẩn bị bản thảo phân tích. Kiểm tra bằng unit/integration tests, hash input, source/offset checks, token guard và Qdrant persistence/filter/reingest checks. Các đề xuất AI có nhãn riêng; phần người học cần xác nhận chưa được giả làm kết quả đã làm thủ công. Tôi cần đọc nguồn, xác nhận nhãn và tự giải thích bài trước khi nộp. Chưa nộp LMS; việc nộp do tôi thực hiện.
+Codex hỗ trợ viết pipeline, soạn câu hỏi/gold, đọc log, tính chỉ số và chuẩn bị bản thảo phân tích/audit. Kiểm tra kỹ thuật bằng unit/integration tests, hash input, source/offset checks, token guard và Qdrant persistence/filter/reingest checks. {approval_text} Tôi tự trình bày và nộp bài. Chưa nộp LMS; việc nộp do tôi thực hiện.
 '''
     destination = ROOT/"report/individual/2A202603646_NguyenManhTuong.md"
     destination.write_text(content,encoding="utf-8")

@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-11-13T10:55:29.053804+00:00",
+  "checked_at": "2026-11-13T11:07:53.591423+00:00",
   "technical_checks_passed": true,
-  "full_submission_ready": false,
+  "full_submission_ready": true,
   "unit_integration_tests": {
-    "run": 9,
+    "run": 12,
     "failures": 0,
     "errors": 0
   },
@@ -11,7 +11,7 @@
   "artifact_structure": true,
   "local_file_links": true,
   "secret_pattern_scan": "No patterns found; heuristic check, not a proof of all possible secrets",
-  "human_audit_pending": 110,
-  "human_gold_semantics_all_confirmed_valid": false,
+  "human_audit_pending": 0,
+  "human_gold_semantics_all_confirmed_valid": true,
   "lms": "Student submits; not submitted by agent"
 }
