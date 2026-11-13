@@ -1,0 +1,131 @@
+
+$ -m src.pipeline index
+Indexed A: 585 real vectors, embedding 48.19s
+Indexed B: 312 real vectors, embedding 61.96s
+
+$ -m src.pipeline check-store
+{
+  "A": {
+    "expected_count": 585,
+    "count_first": 585,
+    "count_after_same_snapshot_reingest": 585,
+    "no_duplicates": true,
+    "validated_store_ingest_seconds": 3.824435899965465
+  },
+  "B": {
+    "expected_count": 312,
+    "count_first": 312,
+    "count_after_same_snapshot_reingest": 312,
+    "no_duplicates": true,
+    "validated_store_ingest_seconds": 2.402695099823177
+  },
+  "obsolete_chunks": {
+    "before": 2,
+    "after": 1,
+    "removed": true,
+    "method": "Stable ID upsert plus official Qdrant deletion of obsolete point IDs"
+  },
+  "persistence": {
+    "reopened_from_disk": true,
+    "same_top3": true,
+    "count_after_reopen": 312
+  },
+  "filter": {
+    "returned": 3,
+    "all_match": true
+  },
+  "checked_at": "2026-11-13T10:44:07.088803+00:00"
+}
+
+$ -m src.pipeline dev
+dev D01 A: hit1=False hit3=True
+dev D01 B: hit1=False hit3=False
+dev D01 C: hit1=False hit3=False
+dev D02 A: hit1=True hit3=True
+dev D02 B: hit1=True hit3=True
+dev D02 C: hit1=True hit3=True
+dev D03 A: hit1=False hit3=False
+dev D03 B: hit1=True hit3=True
+dev D03 C: hit1=True hit3=True
+dev D04 A: hit1=True hit3=True
+dev D04 B: hit1=True hit3=True
+dev D04 C: hit1=True hit3=True
+dev D05 A: hit1=True hit3=True
+dev D05 B: hit1=True hit3=True
+dev D05 C: hit1=True hit3=True
+dev D06 A: hit1=True hit3=True
+dev D06 B: hit1=True hit3=True
+dev D06 C: hit1=True hit3=True
+dev D07 A: hit1=True hit3=True
+dev D07 B: hit1=True hit3=True
+dev D07 C: hit1=True hit3=True
+dev D08 A: hit1=True hit3=True
+dev D08 B: hit1=True hit3=True
+dev D08 C: hit1=True hit3=True
+dev D09 A: hit1=False hit3=False
+dev D09 B: hit1=False hit3=False
+dev D09 C: hit1=False hit3=False
+dev D10 A: hit1=False hit3=False
+dev D10 B: hit1=False hit3=True
+dev D10 C: hit1=False hit3=True
+dev D11 A: hit1=True hit3=True
+dev D11 B: hit1=True hit3=True
+dev D11 C: hit1=True hit3=True
+dev D12 A: hit1=False hit3=False
+dev D12 B: hit1=True hit3=True
+dev D12 C: hit1=True hit3=True
+dev D13 A: hit1=False hit3=False
+dev D13 B: hit1=True hit3=True
+dev D13 C: hit1=True hit3=True
+dev D14 A: hit1=True hit3=True
+dev D14 B: hit1=True hit3=True
+dev D14 C: hit1=True hit3=True
+dev D15 A: hit1=True hit3=True
+dev D15 B: hit1=True hit3=True
+dev D15 C: hit1=True hit3=True
+
+$ -m src.pipeline test
+test T01 A: hit1=False hit3=True
+test T01 B: hit1=True hit3=True
+test T01 C: hit1=True hit3=True
+test T02 A: hit1=False hit3=True
+test T02 B: hit1=False hit3=True
+test T02 C: hit1=False hit3=True
+test T03 A: hit1=True hit3=True
+test T03 B: hit1=True hit3=True
+test T03 C: hit1=True hit3=True
+test T04 A: hit1=False hit3=False
+test T04 B: hit1=False hit3=False
+test T04 C: hit1=False hit3=False
+test T05 A: hit1=True hit3=True
+test T05 B: hit1=True hit3=True
+test T05 C: hit1=True hit3=True
+
+$ -m src.pipeline audit
+{'generated_at': '2026-11-13T10:44:17.072580+00:00', 'method': 'Structural/exact-match proposals plus separately attributed AI semantic notes on T04; not confirmed human audit', 'groups': {'coherence': {'required': 30, 'human_confirmed': 0, 'pending': 30}, 'metadata': {'required': 45, 'human_confirmed': 0, 'pending': 45}, 'grounding': {'required': 15, 'human_confirmed': 0, 'pending': 15}, 'gold': {'required': 20, 'human_confirmed': 0, 'pending': 20}}}
+
+$ -m src.pipeline verify
+{
+  "verified_at": "2026-11-13T10:44:23.851224+00:00",
+  "checks_passed": true,
+  "content_units": 69,
+  "questions": 20,
+  "automatic_verification_only": true,
+  "human_audit": "pending until signed labels supplied"
+}
+
+$ -m unittest discover -s tests -v
+test_benchmark_lock_and_source_backed_filter (test_pipeline.ContentTests.test_benchmark_lock_and_source_backed_filter) ... ok
+test_extract_body_no_nav_no_duplicate_list_paragraph (test_pipeline.ContentTests.test_extract_body_no_nav_no_duplicate_list_paragraph) ... ok
+test_fixed_overlap_and_complete_coverage (test_pipeline.ContentTests.test_fixed_overlap_and_complete_coverage) ... ok
+test_hit_requires_source_page_and_whole_evidence_in_one_chunk (test_pipeline.ContentTests.test_hit_requires_source_page_and_whole_evidence_in_one_chunk) ... ok
+test_missing_document_body_is_error (test_pipeline.ContentTests.test_missing_document_body_is_error) ... ok
+test_normalize_unicode_and_keep_code_indentation (test_pipeline.ContentTests.test_normalize_unicode_and_keep_code_indentation) ... ok
+test_paragraph_long_block_no_text_loss_or_duplication (test_pipeline.ContentTests.test_paragraph_long_block_no_text_loss_or_duplication) ... ok
+test_units_contiguous_minimum_and_no_padded_tail (test_pipeline.ContentTests.test_units_contiguous_minimum_and_no_padded_tail) ... ok
+test_real_vector_persistence_filter_and_obsolete_point_removal (test_pipeline.QdrantIntegrationTests.test_real_vector_persistence_filter_and_obsolete_point_removal) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.296s
+
+OK

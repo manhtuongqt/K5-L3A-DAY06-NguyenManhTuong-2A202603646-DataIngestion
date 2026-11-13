@@ -1,0 +1,68 @@
+{
+  "split": "test",
+  "completed_at": "2026-11-13T10:35:46.432977+00:00",
+  "strategies": {
+    "A": {
+      "questions": 5,
+      "hit_at_1": {
+        "n": 2,
+        "N": 5,
+        "rate": 0.4
+      },
+      "evidence_hit_at_3": {
+        "n": 4,
+        "N": 5,
+        "rate": 0.8
+      },
+      "filter_compliance": {
+        "n": 1,
+        "N": 3
+      },
+      "mean_search_ms": 1.7825400456786156,
+      "filter_applied_count": 0
+    },
+    "B": {
+      "questions": 5,
+      "hit_at_1": {
+        "n": 3,
+        "N": 5,
+        "rate": 0.6
+      },
+      "evidence_hit_at_3": {
+        "n": 4,
+        "N": 5,
+        "rate": 0.8
+      },
+      "filter_compliance": {
+        "n": 2,
+        "N": 3
+      },
+      "mean_search_ms": 1.2452201917767525,
+      "filter_applied_count": 0
+    },
+    "C": {
+      "questions": 5,
+      "hit_at_1": {
+        "n": 3,
+        "N": 5,
+        "rate": 0.6
+      },
+      "evidence_hit_at_3": {
+        "n": 4,
+        "N": 5,
+        "rate": 0.8
+      },
+      "filter_compliance": {
+        "n": 3,
+        "N": 3
+      },
+      "mean_search_ms": 3.6049798130989075,
+      "filter_applied_count": 3
+    }
+  },
+  "shared_query_embedding_seconds": 0.05313809961080551,
+  "query_count": 5,
+  "query_tokens": 169,
+  "api_calls": 0,
+  "api_cost_usd": 0
+}

@@ -1,0 +1,10 @@
+{
+  "locked_at": "2026-11-13T10:26:12.808821+00:00",
+  "sha256": {
+    "data/pages.jsonl": "16c33ff8363b1d5b1833a77ec3cf2891a7ead1eea202a51bba092d981cdbf92f",
+    "data/manifest.json": "2db095b271b1eef6ef2bb127366be0a8ab1740af636842a511a7f768cbcc6d4a",
+    "benchmark/questions.json": "27ab0dac89334f0e73c3e9966cede31b09b79a1bf05b3fa9b04bc1b3f9e163fe",
+    "benchmark/protocol.json": "3cbc6eb31036b079c2caca5c140928328b2ea70a7d6ccc45210d13835a3b3a85",
+    "benchmark/model.json": "13ffcb7f358c70015512dfb70e115f8ab86a9b728dd6453e156623ec6c640190"
+  }
+}

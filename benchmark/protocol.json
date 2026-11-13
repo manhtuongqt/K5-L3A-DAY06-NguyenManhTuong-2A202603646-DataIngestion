@@ -1,0 +1,87 @@
+{
+  "frozen_at": "2026-11-13T10:26:12.806827+00:00",
+  "configs": {
+    "A": {
+      "method": "fixed",
+      "size_chars": 500,
+      "overlap_chars": 50,
+      "filter": false,
+      "collection": "day06_A"
+    },
+    "B": {
+      "method": "paragraph",
+      "max_chars": 1000,
+      "overlap_chars": 0,
+      "filter": false,
+      "collection": "day06_B"
+    },
+    "C": {
+      "method": "paragraph",
+      "max_chars": 1000,
+      "overlap_chars": 0,
+      "filter": true,
+      "collection": "day06_B"
+    }
+  },
+  "split_rule": "D01-D15: tutorial chapters; T01-T05: library reference (JSON/CSV/pathlib), source-disjoint from dev but same corpus. Authored together before retrieval.",
+  "selection_rule": [
+    "maximize dev Evidence Hit@3",
+    "then maximize dev Hit@1",
+    "then minimize average dev search latency",
+    "then alphabetical strategy"
+  ],
+  "audit_anchors": [
+    {
+      "page": "library_csv:u001",
+      "offset": 200
+    },
+    {
+      "page": "library_csv:u002",
+      "offset": 200
+    },
+    {
+      "page": "library_csv:u003",
+      "offset": 200
+    },
+    {
+      "page": "library_csv:u004",
+      "offset": 200
+    },
+    {
+      "page": "library_csv:u005",
+      "offset": 200
+    },
+    {
+      "page": "library_csv:u006",
+      "offset": 200
+    },
+    {
+      "page": "library_json:u001",
+      "offset": 200
+    },
+    {
+      "page": "library_json:u002",
+      "offset": 200
+    },
+    {
+      "page": "library_json:u003",
+      "offset": 200
+    },
+    {
+      "page": "library_json:u004",
+      "offset": 200
+    }
+  ],
+  "anchor_rule": "First 10 lexically sorted page IDs; character offset 200; choose earliest containing chunk if overlap.",
+  "metadata_audit": "All 5 test questions x top-3 for each A/B/C; compare with source pages and offsets.",
+  "grounding_audit": "All 5 test questions x A/B/C. 0=no evidence; 1=partial/missing condition or context; 2=enough evidence and traceability. Human confirms.",
+  "coherence_scale": "0=broken meaning/missing subject; 1=partly interpretable/context missing; 2=self-contained complete idea. Human confirms.",
+  "hit_definition": "One top-ranked chunk must have a gold source AND page AND contain the complete recorded evidence. Not a union across chunks. Human-confirmed equivalent evidence may be recorded separately, without overwriting strict scores.",
+  "holdout_policy": "Select on dev before opening test outputs; no test-based tuning. Refuse overwrite of runs. Bug fixes after exposure require disclosure and archived prior results.",
+  "language": "English questions and English corpus; report in Vietnamese",
+  "seed": null,
+  "seed_reason": "No random split, random sampling or stochastic model sampling; deterministic anchors and exact retrieval.",
+  "human_review_status": "pending; proposed labels never count as confirmed human audit",
+  "amended_before_retrieval_at": "2026-11-13T10:31:01.968609+00:00",
+  "amendment_reason": "B/C token guard found max564 >512 before any dev/test retrieval; reduce both max_chars1200 to1000. Original lock retained."
+}

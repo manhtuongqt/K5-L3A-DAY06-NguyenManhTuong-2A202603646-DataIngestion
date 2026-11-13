@@ -1,0 +1,9 @@
+{
+  "checked_at": "2026-11-13T10:56:31.979242+00:00",
+  "matched_rows": 110,
+  "total_rows": 110,
+  "passed": true,
+  "source_review_sha256": "1cdb706876ea8594066a2c957fcdfcbea1b73c5ef5a27a36943212f7ee0dd94b",
+  "scope": "Regenerate primary annotation table and aggregates from saved attributed content review; not a new independent annotation",
+  "retrieval_rerun": false
+}

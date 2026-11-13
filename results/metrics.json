@@ -1,0 +1,149 @@
+{
+  "dev": {
+    "A": {
+      "questions": 15,
+      "hit_at_1": {
+        "n": 9,
+        "N": 15,
+        "rate": 0.6
+      },
+      "evidence_hit_at_3": {
+        "n": 10,
+        "N": 15,
+        "rate": 0.6666666666666666
+      },
+      "filter_compliance": {
+        "n": 2,
+        "N": 3
+      },
+      "mean_search_ms": 2.278259893258413,
+      "filter_applied_count": 0
+    },
+    "B": {
+      "questions": 15,
+      "hit_at_1": {
+        "n": 12,
+        "N": 15,
+        "rate": 0.8
+      },
+      "evidence_hit_at_3": {
+        "n": 13,
+        "N": 15,
+        "rate": 0.8666666666666667
+      },
+      "filter_compliance": {
+        "n": 3,
+        "N": 3
+      },
+      "mean_search_ms": 1.8266002337137859,
+      "filter_applied_count": 0
+    },
+    "C": {
+      "questions": 15,
+      "hit_at_1": {
+        "n": 12,
+        "N": 15,
+        "rate": 0.8
+      },
+      "evidence_hit_at_3": {
+        "n": 13,
+        "N": 15,
+        "rate": 0.8666666666666667
+      },
+      "filter_compliance": {
+        "n": 3,
+        "N": 3
+      },
+      "mean_search_ms": 2.94246015449365,
+      "filter_applied_count": 3
+    }
+  },
+  "test": {
+    "A": {
+      "questions": 5,
+      "hit_at_1": {
+        "n": 2,
+        "N": 5,
+        "rate": 0.4
+      },
+      "evidence_hit_at_3": {
+        "n": 4,
+        "N": 5,
+        "rate": 0.8
+      },
+      "filter_compliance": {
+        "n": 1,
+        "N": 3
+      },
+      "mean_search_ms": 1.7825400456786156,
+      "filter_applied_count": 0
+    },
+    "B": {
+      "questions": 5,
+      "hit_at_1": {
+        "n": 3,
+        "N": 5,
+        "rate": 0.6
+      },
+      "evidence_hit_at_3": {
+        "n": 4,
+        "N": 5,
+        "rate": 0.8
+      },
+      "filter_compliance": {
+        "n": 2,
+        "N": 3
+      },
+      "mean_search_ms": 1.2452201917767525,
+      "filter_applied_count": 0
+    },
+    "C": {
+      "questions": 5,
+      "hit_at_1": {
+        "n": 3,
+        "N": 5,
+        "rate": 0.6
+      },
+      "evidence_hit_at_3": {
+        "n": 4,
+        "N": 5,
+        "rate": 0.8
+      },
+      "filter_compliance": {
+        "n": 3,
+        "N": 3
+      },
+      "mean_search_ms": 3.6049798130989075,
+      "filter_applied_count": 3
+    }
+  },
+  "selection": "B",
+  "human_audit_status": {
+    "generated_at": "2026-11-13T10:53:33.521212+00:00",
+    "method": "Primary labels filled by Codex from source/trace content; no confirmed human audit",
+    "assistant_labeled": 110,
+    "groups": {
+      "coherence": {
+        "required": 30,
+        "human_confirmed": 0,
+        "pending": 30
+      },
+      "metadata": {
+        "required": 45,
+        "human_confirmed": 0,
+        "pending": 45
+      },
+      "grounding": {
+        "required": 15,
+        "human_confirmed": 0,
+        "pending": 15
+      },
+      "gold": {
+        "required": 20,
+        "human_confirmed": 0,
+        "pending": 20
+      }
+    }
+  },
+  "generated_at": "2026-11-13T10:57:13.984454+00:00"
+}

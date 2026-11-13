@@ -1,0 +1,32 @@
+{
+  "A": {
+    "expected_count": 585,
+    "count_first": 585,
+    "count_after_same_snapshot_reingest": 585,
+    "no_duplicates": true,
+    "validated_store_ingest_seconds": 3.765146399848163
+  },
+  "B": {
+    "expected_count": 312,
+    "count_first": 312,
+    "count_after_same_snapshot_reingest": 312,
+    "no_duplicates": true,
+    "validated_store_ingest_seconds": 1.9983700001612306
+  },
+  "obsolete_chunks": {
+    "before": 2,
+    "after": 1,
+    "removed": true,
+    "method": "Stable ID upsert plus official Qdrant deletion of obsolete point IDs"
+  },
+  "persistence": {
+    "reopened_from_disk": true,
+    "same_top3": true,
+    "count_after_reopen": 312
+  },
+  "filter": {
+    "returned": 3,
+    "all_match": true
+  },
+  "checked_at": "2026-11-13T10:34:17.757455+00:00"
+}

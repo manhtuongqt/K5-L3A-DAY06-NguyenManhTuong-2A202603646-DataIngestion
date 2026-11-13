@@ -1,0 +1,10 @@
+# Keep code stable across Windows/Linux.
+* text=auto eol=lf
+# Frozen snapshots/locks and chunk traces use byte-level SHA-256.
+# Preserve their original bytes, including existing CRLF, on every checkout.
+# Validate these immutable/generated artifacts with hashes, not whitespace edits.
+data/** -text -whitespace
+benchmark/** -text -whitespace
+results/*.jsonl -text -whitespace
+# Review embeds literal chunk boundaries, including a truncated final space.
+results/audit/REVIEW.md -whitespace

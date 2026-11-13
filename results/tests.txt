@@ -1,0 +1,14 @@
+test_benchmark_lock_and_source_backed_filter (test_pipeline.ContentTests.test_benchmark_lock_and_source_backed_filter) ... ok
+test_extract_body_no_nav_no_duplicate_list_paragraph (test_pipeline.ContentTests.test_extract_body_no_nav_no_duplicate_list_paragraph) ... ok
+test_fixed_overlap_and_complete_coverage (test_pipeline.ContentTests.test_fixed_overlap_and_complete_coverage) ... ok
+test_hit_requires_source_page_and_whole_evidence_in_one_chunk (test_pipeline.ContentTests.test_hit_requires_source_page_and_whole_evidence_in_one_chunk) ... ok
+test_missing_document_body_is_error (test_pipeline.ContentTests.test_missing_document_body_is_error) ... ok
+test_normalize_unicode_and_keep_code_indentation (test_pipeline.ContentTests.test_normalize_unicode_and_keep_code_indentation) ... ok
+test_paragraph_long_block_no_text_loss_or_duplication (test_pipeline.ContentTests.test_paragraph_long_block_no_text_loss_or_duplication) ... ok
+test_units_contiguous_minimum_and_no_padded_tail (test_pipeline.ContentTests.test_units_contiguous_minimum_and_no_padded_tail) ... ok
+test_real_vector_persistence_filter_and_obsolete_point_removal (test_pipeline.QdrantIntegrationTests.test_real_vector_persistence_filter_and_obsolete_point_removal) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.082s
+
+OK

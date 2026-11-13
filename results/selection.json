@@ -1,0 +1,82 @@
+{
+  "selected_at": "2026-11-13T10:35:00.334123+00:00",
+  "selected_strategy": "B",
+  "based_on": "dev only; before test retrieval",
+  "rule": [
+    "maximize dev Evidence Hit@3",
+    "then maximize dev Hit@1",
+    "then minimize average dev search latency",
+    "then alphabetical strategy"
+  ],
+  "benchmark_lock_sha256": "2911092b9556f7cda18f3a88658bd765492accdb546d82cf85988dae4c2ef989",
+  "chunk_hashes": {
+    "results/chunks_A.jsonl": "a89de3059e9e60760eb714df1fb00ab926f451e670e9b26348f4b21a04134fe2",
+    "results/chunks_B.jsonl": "bcc757f290099109a9361d8f5e7f2812c3ea57901b5048854c93269ccbd808e1"
+  },
+  "implementation_hashes": {
+    "src/chunking.py": "a1e905c4cf68858f37247883577d9c68c631fd1b3996b8115edfbcb57bfbb00c",
+    "src/embedding.py": "ed76d6db602fd0a5e5368666c63b8aa7f2ca6e7f738698cac9c73cec7bb657d0",
+    "src/store.py": "592e68ba7f19325fcb4d0727df7c7d58e92f5d1800f4dbc80dc81b109bc04884",
+    "src/evaluation.py": "c7d1383741ff36c47078c0cfe767b4e587c8ce64b81a3cedb8c77fa2211e16cd"
+  },
+  "dev_summary": {
+    "A": {
+      "questions": 15,
+      "hit_at_1": {
+        "n": 9,
+        "N": 15,
+        "rate": 0.6
+      },
+      "evidence_hit_at_3": {
+        "n": 10,
+        "N": 15,
+        "rate": 0.6666666666666666
+      },
+      "filter_compliance": {
+        "n": 2,
+        "N": 3
+      },
+      "mean_search_ms": 2.278259893258413,
+      "filter_applied_count": 0
+    },
+    "B": {
+      "questions": 15,
+      "hit_at_1": {
+        "n": 12,
+        "N": 15,
+        "rate": 0.8
+      },
+      "evidence_hit_at_3": {
+        "n": 13,
+        "N": 15,
+        "rate": 0.8666666666666667
+      },
+      "filter_compliance": {
+        "n": 3,
+        "N": 3
+      },
+      "mean_search_ms": 1.8266002337137859,
+      "filter_applied_count": 0
+    },
+    "C": {
+      "questions": 15,
+      "hit_at_1": {
+        "n": 12,
+        "N": 15,
+        "rate": 0.8
+      },
+      "evidence_hit_at_3": {
+        "n": 13,
+        "N": 15,
+        "rate": 0.8666666666666667
+      },
+      "filter_compliance": {
+        "n": 3,
+        "N": 3
+      },
+      "mean_search_ms": 2.94246015449365,
+      "filter_applied_count": 3
+    }
+  },
+  "strategy_tuning": "No parameter search. One predeclared A/B/C comparison retained, including failures."
+}

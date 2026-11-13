@@ -1,0 +1,29 @@
+{
+  "A": {
+    "expected_count": 585,
+    "count_first": 585,
+    "count_after_same_snapshot_reingest": 585,
+    "no_duplicates": true
+  },
+  "B": {
+    "expected_count": 312,
+    "count_first": 312,
+    "count_after_same_snapshot_reingest": 312,
+    "no_duplicates": true
+  },
+  "obsolete_chunks": {
+    "before": 2,
+    "after": 2,
+    "removed": false,
+    "method": "Full collection snapshot replacement; temporary check collection only"
+  },
+  "persistence": {
+    "reopened_from_disk": true,
+    "same_top3": true,
+    "count_after_reopen": 312
+  },
+  "filter": {
+    "returned": 3,
+    "all_match": true
+  }
+}

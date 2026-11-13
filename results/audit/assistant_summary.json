@@ -1,0 +1,93 @@
+{
+  "annotator": "Codex (AI)",
+  "human_confirmed": false,
+  "strategies": {
+    "A": {
+      "coherence": {
+        "n": 10,
+        "mean": 1.0,
+        "counts": {
+          "0": 0,
+          "1": 10,
+          "2": 0
+        }
+      },
+      "metadata": {
+        "n": 15,
+        "mean": 1.0,
+        "counts": {
+          "0": 0,
+          "1": 15,
+          "2": 0
+        }
+      },
+      "grounding": {
+        "n": 5,
+        "mean": 2.0,
+        "counts": {
+          "0": 0,
+          "1": 0,
+          "2": 5
+        }
+      }
+    },
+    "B": {
+      "coherence": {
+        "n": 10,
+        "mean": 1.3,
+        "counts": {
+          "0": 0,
+          "1": 7,
+          "2": 3
+        }
+      },
+      "metadata": {
+        "n": 15,
+        "mean": 1.0,
+        "counts": {
+          "0": 0,
+          "1": 15,
+          "2": 0
+        }
+      },
+      "grounding": {
+        "n": 5,
+        "mean": 2.0,
+        "counts": {
+          "0": 0,
+          "1": 0,
+          "2": 5
+        }
+      }
+    },
+    "C": {
+      "coherence": {
+        "n": 10,
+        "mean": 1.3,
+        "counts": {
+          "0": 0,
+          "1": 7,
+          "2": 3
+        }
+      },
+      "metadata": {
+        "n": 15,
+        "mean": 1.0,
+        "counts": {
+          "0": 0,
+          "1": 15,
+          "2": 0
+        }
+      },
+      "grounding": {
+        "n": 5,
+        "mean": 2.0,
+        "counts": {
+          "0": 0,
+          "1": 0,
+          "2": 5
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "locked_at": "2026-11-13T10:31:01.971601+00:00",
+  "sha256": {
+    "data/pages.jsonl": "16c33ff8363b1d5b1833a77ec3cf2891a7ead1eea202a51bba092d981cdbf92f",
+    "data/manifest.json": "2db095b271b1eef6ef2bb127366be0a8ab1740af636842a511a7f768cbcc6d4a",
+    "benchmark/questions.json": "27ab0dac89334f0e73c3e9966cede31b09b79a1bf05b3fa9b04bc1b3f9e163fe",
+    "benchmark/protocol.json": "eae0a89a11748c3d70ab7c67778ba46dabcb0ef8d4f5d728928c3405d5556caa",
+    "benchmark/model.json": "13ffcb7f358c70015512dfb70e115f8ab86a9b728dd6453e156623ec6c640190"
+  },
+  "previous_lock_sha256": "cdd0d55371c9b4edcb2d932d6368eeb318560a95c71cd304457853d1ffae6ffb",
+  "amendment": "pre-retrieval token safety fix"
+}

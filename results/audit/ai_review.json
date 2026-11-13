@@ -1,0 +1,18 @@
+{
+  "reviewer": "Codex (AI); not the student",
+  "method": "Content review of the saved T04 top-3 after the test run. This does not change strict hits, gold or strategy selection.",
+  "overrides": {
+    "GRD-T04-A": {
+      "label": 2,
+      "reason": "AI semantic proposal: top-2 on library_csv:u001 explicitly says None becomes an empty string and the transformation is not reversible. It omits the tail about cursor.fetch*, which is unnecessary for this question. Strict full-quote hit remains 0; human must verify the equivalent evidence."
+    },
+    "GRD-T04-B": {
+      "label": 2,
+      "reason": "AI semantic proposal: top-3 on library_csv:u001 contains both None -> empty string and not reversible. The long paragraph is split after these facts, before the gold quote tail. Enough for the question, subject to human review; do not change frozen strict metrics."
+    },
+    "GRD-T04-C": {
+      "label": 2,
+      "reason": "AI semantic proposal: same top-3 as B because T04 has no filter. Both required facts are present; strict quote is incomplete. Equivalent support needs human confirmation."
+    }
+  }
+}

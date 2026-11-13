@@ -1,0 +1,27 @@
+{
+  "generated_at": "2026-11-13T10:53:33.521212+00:00",
+  "method": "Primary labels filled by Codex from source/trace content; no confirmed human audit",
+  "assistant_labeled": 110,
+  "groups": {
+    "coherence": {
+      "required": 30,
+      "human_confirmed": 0,
+      "pending": 30
+    },
+    "metadata": {
+      "required": 45,
+      "human_confirmed": 0,
+      "pending": 45
+    },
+    "grounding": {
+      "required": 15,
+      "human_confirmed": 0,
+      "pending": 15
+    },
+    "gold": {
+      "required": 20,
+      "human_confirmed": 0,
+      "pending": 20
+    }
+  }
+}

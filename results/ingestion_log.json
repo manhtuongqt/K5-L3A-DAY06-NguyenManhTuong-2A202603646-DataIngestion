@@ -1,0 +1,80 @@
+{
+  "events": [
+    {
+      "source_id": "tutorial_controlflow",
+      "status": "ok",
+      "resolved_url": "https://docs.python.org/3.13/tutorial/controlflow.html",
+      "units": 10,
+      "blocks": 209,
+      "chars": 35976
+    },
+    {
+      "source_id": "tutorial_datastructures",
+      "status": "ok",
+      "resolved_url": "https://docs.python.org/3.13/tutorial/datastructures.html",
+      "units": 6,
+      "blocks": 138,
+      "chars": 22915
+    },
+    {
+      "source_id": "tutorial_modules",
+      "status": "ok",
+      "resolved_url": "https://docs.python.org/3.13/tutorial/modules.html",
+      "units": 6,
+      "blocks": 110,
+      "chars": 23046
+    },
+    {
+      "source_id": "tutorial_inputoutput",
+      "status": "ok",
+      "resolved_url": "https://docs.python.org/3.13/tutorial/inputoutput.html",
+      "units": 5,
+      "blocks": 104,
+      "chars": 18506
+    },
+    {
+      "source_id": "tutorial_errors",
+      "status": "ok",
+      "resolved_url": "https://docs.python.org/3.13/tutorial/errors.html",
+      "units": 6,
+      "blocks": 96,
+      "chars": 21649
+    },
+    {
+      "source_id": "tutorial_classes",
+      "status": "ok",
+      "resolved_url": "https://docs.python.org/3.13/tutorial/classes.html",
+      "units": 9,
+      "blocks": 147,
+      "chars": 33903
+    },
+    {
+      "source_id": "library_json",
+      "status": "ok",
+      "resolved_url": "https://docs.python.org/3.13/library/json.html",
+      "units": 7,
+      "blocks": 231,
+      "chars": 24317
+    },
+    {
+      "source_id": "library_csv",
+      "status": "ok",
+      "resolved_url": "https://docs.python.org/3.13/library/csv.html",
+      "units": 6,
+      "blocks": 182,
+      "chars": 21438
+    },
+    {
+      "source_id": "library_pathlib",
+      "status": "ok",
+      "resolved_url": "https://docs.python.org/3.13/library/pathlib.html",
+      "units": 14,
+      "blocks": 560,
+      "chars": 51571
+    }
+  ],
+  "completed": true,
+  "empty_units": 0,
+  "ocr": "not applicable: born-digital HTML",
+  "elapsed_seconds": 9.486736500635743
+}

@@ -1,0 +1,27 @@
+{
+  "A": {
+    "chunk_count": 585,
+    "characters_including_overlap": 279001,
+    "min_chars": 53,
+    "median_chars": 500.0,
+    "p95_chars": 500.0,
+    "max_chars": 500
+  },
+  "B": {
+    "chunk_count": 312,
+    "characters_including_overlap": 253201,
+    "min_chars": 23,
+    "median_chars": 875.5,
+    "p95_chars": 992.0,
+    "max_chars": 1000
+  },
+  "C": {
+    "chunk_count": 312,
+    "characters_including_overlap": 253201,
+    "min_chars": 23,
+    "median_chars": 875.5,
+    "p95_chars": 992.0,
+    "max_chars": 1000,
+    "shared_index": "B; no duplicate storage or embedding"
+  }
+}

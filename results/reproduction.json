@@ -1,0 +1,13 @@
+{
+  "completed_at": "2026-11-13T10:44:27.595102+00:00",
+  "workspace": ".local/reproduce/20261113T104144294761Z",
+  "passed": true,
+  "comparison_checks": 78,
+  "max_score_absolute_difference": 0.0,
+  "original_selected_strategy": "B",
+  "replay_selected_strategy": "B",
+  "selection_note": "Latency tie-break can vary; original submission keeps its preregistered dev selection.",
+  "scope": "Full fresh index, persisted-store checks, one dev/test retrieval per strategy, audit generation, frozen input verification and unit/integration tests; no strategy tuning.",
+  "api_inference_calls": 0,
+  "api_cost_usd": 0
+}
